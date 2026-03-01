@@ -4779,13 +4779,26 @@ Even if $\CCG$ is calculated correctly, it may not equal the amount shown in the
 
 \subsubsection{All Edge Cases and Scenarios}
 
-\begin{table}[H]
-\centering\scriptsize\sffamily
+{\scriptsize\sffamily
+\begin{longtable}{@{}L{3.2cm} X L{3.2cm}@{}}
 \caption{Distribution component scenarios --- all cases}
-\label{tab:dist-scenarios}
-\begin{tabularx}{\textwidth}{@{}L{3.2cm} X L{3.2cm}@{}}
+\label{tab:dist-scenarios}\\
+% ── first-page header ──────────────────────────────────────────────────────────
 \rowcolor{navy}\textcolor{white}{\bfseries Scenario} & \textcolor{white}{\bfseries Analysis} & \textcolor{white}{\bfseries Dominant Components} \\
 \midrule
+\endfirsthead
+% ── continuation header ────────────────────────────────────────────────────────
+\multicolumn{3}{l}{\footnotesize\itshape Table~\ref{tab:dist-scenarios} continued --- Distribution component scenarios}\\[2pt]
+\rowcolor{navy}\textcolor{white}{\bfseries Scenario} & \textcolor{white}{\bfseries Analysis} & \textcolor{white}{\bfseries Dominant Components} \\
+\midrule
+\endhead
+% ── continuation footer ────────────────────────────────────────────────────────
+\midrule
+\multicolumn{3}{r}{\footnotesize\itshape Continued on next page\ldots}\\
+\endfoot
+% ── last-page footer ───────────────────────────────────────────────────────────
+\bottomrule
+\endlastfoot
 $D = \NetTI$ (perfect match) & Distribution exactly equals taxable income.  No tax deferred, no ROC.  All of $D$ is taxable.  Unitholder pays tax on exactly what they receive. & $\COI$, $\CCG$ \\
 \rowcolor{warmgray}
 $D < \NetTI$ (distribution below taxable income) & Unitholder assessed on full $\NetTI$ share under s97, but only receives $D$ in cash.  The shortfall ($\NetTI - D$) must be funded from unitholder's own resources.  No $\CTD$, no $\CROC$.  All of $D$ is taxable.  See ``Tax Exceeds Cash'' below. & $\COI$, $\CCG$ \\
@@ -4795,24 +4808,23 @@ $D > AP^+$, $AP^+ \geq \NetTI$ (exceeds accounting profit --- true ROC) & Excess
 $D > AP^+$, $AP^+ < \NetTI$ (accounting profit below taxable income) & Arises when a non-deductible accounting write-down (e.g.\ AASB~140 fair-value impairment) compresses accounting profit below taxable income.  $\TDmax = 0$ (no timing band); $\CROC = D - \NetTI$ (since $AP^+ = 0$ or $AP^+ < \NetTI$ removes the middle band); there is no $\CTD$.  Verify that no timing-difference deduction is being double-counted. & $\COI$, $\CCG$, $\CROC$ (no $\CTD$) \\
 \rowcolor{warmgray}
 $AP < 0$, $\NetTI > 0$ (accounting loss but positive taxable income) & Arises when AASB~140 fair value write-down reduces book profit below zero, but the unrealised loss is not deductible.  $\TDmax = 0$ (no timing excess).  If $D > \NetTI$: $\CROC = D - \NetTI$ (since $AP^+ = 0$, no middle band). & $\COI$, $\CCG$, possibly $\CROC$ \\
-\rowcolor{warmgray}
 $AP < 0$, $\NetTI = 0$ (accounting and tax loss) & No assessable income.  Entire $D$ is ROC.  Unit cost base reduced by $D$. & $\CROC$ only \\
+\rowcolor{warmgray}
 $TL > \NOI$ (large losses exceed ordinary income) & $\TOI = 0$, $\TLremaining = TL - \NOI$.  No ordinary income component.  If $\NCG$ exists, $\CCG$ dominates.  May be largely tax deferred or ROC. & $\CCG$, $\CTD$, $\CROC$ \\
-\rowcolor{warmgray}
 $\NCG > D$ (net capital gain alone exceeds distribution) & The sequential allocation constrains $\CCG$ to the lesser of remaining $D$ and $\NCG$.  If $\TOI > 0$, $\COI = \min(D, \TOI)$ is allocated first, then $\CCG = D - \COI$; the entire distribution is taxable.  If $\TOI = 0$ (prior-year losses extinguished ordinary income), $\CCG = D$.  No $\CTD$ or $\CROC$ arises because $D \leq \NCG \leq \NetTI$.  The undistributed portion of $\NetTI$ is taxed to unitholders under s97 --- they pay tax on income never received as cash. & $\COI$ (if $\TOI > 0$), then $\CCG$ (absorbs remainder; $\CCG = D$ only when $\TOI = 0$); no $\CTD$, no $\CROC$ \\
+\rowcolor{warmgray}
 $D = 0$ (no distribution, trust has taxable income) & All components = \$0.  But unitholders are still assessed on their s97 share of $\NetTI$ --- tax on income never received as cash. & No components; s97 assessment \\
-\rowcolor{warmgray}
 Sale year: large $\NCG$, prior-year ordinary $TL$ & $TL$ offsets ordinary income but not capital gains.  $\TOI$ eliminated; $\CCG$ dominates.  $D$ may be insufficient to cover tax. & $\CCG$, possibly $\CROC$ \\
+\rowcolor{warmgray}
 H1 in prior year, A1 in current year & H1 distribution (option fee) in prior year: small, likely $\CCG$.  Current year A1: s134-1 adjusts A1 proceeds and cost base.  Do not double-count H1 consideration. & $\CCG$, $\COI$ \\
-\rowcolor{warmgray}
 Post-settlement insurance proceeds only & Trust has only s6-5 ordinary income in wind-up period.  No capital gain.  Distribution is entirely ordinary income. & $\COI$ \\
-Multiple CGT events in same year (H1 and A1) & If both occur in same income year, calculate each gain separately, aggregate in Step~3, then allocate combined $\NCG$ into $D$.  s134-1 adjustment still applies to A1. & $\CCG$ (combined) \\
 \rowcolor{warmgray}
+Multiple CGT events in same year (H1 and A1) & If both occur in same income year, calculate each gain separately, aggregate in Step~3, then allocate combined $\NCG$ into $D$.  s134-1 adjustment still applies to A1. & $\CCG$ (combined) \\
 Div~152 small business CGT concessions apply & The basic conditions in Subdiv~152-A are satisfied (net assets $\leq$\$6M or aggregated turnover $<$\$2M; active asset test met).  After the Div~115 discount, a further Div~152 exclusion ($\CSBC > 0$) reduces the assessable gain permanently.  For a passive property trust holding a leased commercial building this is almost always inapplicable; a positive $\CSBC$ in such a trust is a red flag requiring tax agent confirmation.  If applicable: $\CSBC = D - \COI - \CCG - \CTD - \CROC$. & $\COI$, $\CCG$, $\CTD$ (if any), $\CROC$ (if any), $\CSBC$ \\
+\rowcolor{warmgray}
 NANE income (non-assessable non-exempt) & Amounts excluded from assessable income by specific statutory provision (e.g.\ certain government grants, MIT cross-staple income under s12-437).  Rare for a passive property trust.  NANE is \textbf{not} part of $D$ and does \textbf{not} reduce the unitholder's cost base (s104-71(1)).  NANE falls outside the five-component formula entirely; it is disclosed as a separate line on the AMMA or distribution statement.  If present, the Preparer must confirm the relevant statutory exclusion with the tax agent. & Outside component formula --- separate AMMA disclosure only \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{longtable}
+}
 
 
 \subsubsection{Paying Tax on Undistributed Income (When $D < \NetTI$) --- Tax Exceeds Cash}
