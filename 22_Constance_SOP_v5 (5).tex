@@ -1,7 +1,7 @@
 % ===========================================================================
 % SOP — 22 Constance St Unit Trust
 % Monthly Reporting Pack
-% Version 4.0 — March 2026
+% Version 2.0 — March 2026
 % ===========================================================================
 \documentclass[10pt,a4paper]{article}
 
@@ -991,61 +991,42 @@ Amortisation is the opposite of an accrual: the cash has already been paid and t
 \end{note}
 
 
-\subsubsection{2c \& 2d --- Outgoings Receivable vs.\ Expense; Payment on Behalf}
+\subsubsection{2c --- Outgoings Receivable vs.\ Expense; Payment on Behalf}
 \label{sec:grp2c}
 \label{sec:grp2d}
 
-The unifying risk across both ongoing operations and the disposal period is the same: a cost paid by the trust on behalf of another party --- a tenant or the purchaser --- must be recorded as a \textbf{receivable}, not as an expense. Misclassifying a recoverable payment as an outright expense understates assets and overstates costs. The two subsections below address each context.
-
-\paragraph{Ongoing Operations --- Outgoings Receivable vs.\ Expense}
-
-When the trust pays a property outgoing that is recoverable from a tenant, the trust is acting as a payment intermediary. The payment creates both a gross expense (what the trust paid) and a receivable or income (what the tenant owes or has already advanced). The primary risk is treating the entire payment as the trust's own expense and recording nothing on the receivable or income side.
+When the trust pays a cost on behalf of another party --- a tenant's recoverable outgoing, or a purchaser's contractual obligation --- that payment creates a \textbf{receivable}, not an expense. The central risk in both contexts is the same: posting the payment directly to P\&L expense and recording nothing on the asset side. This overstates costs, understates assets, and in the outgoings context distorts the annual reconciliation by suppressing both income and expense. The table below covers the full lifecycle across ongoing operations and the disposal period.
 
 {\small\sffamily
-\begin{longtable}{@{} L{2.8cm} L{2.5cm} L{7.4cm} @{}}
+\begin{longtable}{@{} L{1.8cm} L{2.8cm} L{2.3cm} L{6.3cm} @{}}
 \rowcolor{navy}
-\textcolor{white}{\bfseries Stage} & \textcolor{white}{\bfseries Treatment} & \textcolor{white}{\bfseries Guidance \& Trap} \\
+\textcolor{white}{\bfseries Context} & \textcolor{white}{\bfseries Item} & \textcolor{white}{\bfseries Treatment} & \textcolor{white}{\bfseries Guidance \& Trap} \\
 \midrule
 \endfirsthead
-\rowcolor{navy}\textcolor{white}{\bfseries Stage} & \textcolor{white}{\bfseries Treatment} & \textcolor{white}{\bfseries Guidance \& Trap} \\
+\rowcolor{navy}\textcolor{white}{\bfseries Context} & \textcolor{white}{\bfseries Item} & \textcolor{white}{\bfseries Treatment} & \textcolor{white}{\bfseries Guidance \& Trap} \\
 \midrule
 \endhead
-\textbf{Outgoing incurred} & Gross expense in P\&L & Record the full cost as a property expense when incurred. Recoverable outgoings for this fund: council rates, insurance, common area electricity, water. \textbf{Trap:} do not reduce the gross expense by any anticipated recovery --- the gross expense and the recovery are separate P\&L lines. \\
+\multirow{5}{*}{\textbf{Ongoing}} & \textbf{Outgoing incurred} & Gross expense in P\&L & Record the full cost as a property expense when incurred. Recoverable outgoings for this fund: council rates, insurance, common area electricity, water. \textbf{Trap:} do not reduce the expense by any expected recovery; the two sides must appear as separate P\&L lines. \\
 \rowcolor{warmgray}
-\textbf{Recovery billed to tenant} & Gross income in P\&L --- separate line; or outgoings receivable on balance sheet if not yet paid & The recovery is a separate income line, not a credit to the expense account. If the recovery has been billed but cash not yet received, hold it as an outgoings receivable on the balance sheet. \textbf{Trap:} do not net the recovery against the expense; that suppresses both sides of the P\&L and misrepresents the trust's outgoings activity. \\
-\textbf{Advance received before period} & Balance sheet liability --- not yet income & Quarterly advances received before the period to which they relate are a liability, not income on receipt. \textbf{Trap:} do not recognise the advance as income on receipt and also accrue the same outgoing as an expense in the same period --- that doubles both sides of the transaction. \\
+& \textbf{Recovery billed / due} & Outgoings receivable (balance sheet) or gross income if cash received & Bill the recovery as a separate income line --- not a credit to the expense account. If billed but unpaid, hold as an outgoings receivable on the balance sheet. \textbf{Trap:} netting the recovery against the expense suppresses both sides of the P\&L and misrepresents outgoings activity. \\
+& \textbf{Advance received early} & Balance sheet liability --- not yet income & Tenant quarterly advances received before the period they cover are a liability, not income on receipt. \textbf{Trap:} do not recognise the advance as income on receipt and simultaneously accrue the same outgoing as an expense --- that doubles both sides of the transaction. \\
 \rowcolor{warmgray}
-\textbf{Annual washup} & Adjustment only & Compare total advances billed against actual costs. Record only the shortfall or credit. \textbf{Trap:} do not re-record the full year's outgoings and recoveries at washup --- those are already in the P\&L from each period. \\
-\textbf{Non-recoverable items} & Expense only --- no receivable & Management fee, ASIC fee, disposal costs, and performance fee are borne by the trust alone. Do not include them in outgoings recovery calculations or in any OGS billing. No receivable arises. \\
+& \textbf{Annual washup} & Adjustment only & Compare total advances billed against actual costs; record only the net shortfall or credit. \textbf{Trap:} do not re-record the full year's outgoings and recoveries at washup --- those are already in the P\&L from prior periods. \\
+& \textbf{Non-recoverable items} & P\&L expense only --- no receivable & Management fee, ASIC fee, disposal costs, and performance fee are borne by the trust. Exclude from OGS billing and outgoings recovery workings. \\
+\midrule
+\multirow{5}{*}{\textbf{Disposal}} & \textbf{Vendor holding costs} & P\&L expense & Insurance, rates, utilities, and management fees incurred while the trust still holds the property are operating expenses. \textbf{Trap:} do not defer these as sale costs and also record them as a P\&L expense --- that double-charges P\&L. \\
+\rowcolor{warmgray}
+& \textbf{Deferred sale costs} & Balance sheet until settlement & Costs exclusively connected to the sale (agent commission, vendor legal, due diligence, marketing) are deferred and offset against the disposal gain at settlement. Current balance: \$133,732. \textbf{Trap:} do not defer a cost and also record it as a P\&L expense in the same period. \\
+& \textbf{Cost paid on behalf of purchaser} & Balance sheet receivable & If the trust pays a cost contractually borne by the purchaser, record a receivable, not an expense. \textbf{Trap:} do not expense a reimbursable payment. Confirm the contractual allocation with the vendor solicitor before posting. \\
+\rowcolor{warmgray}
+& \textbf{Settlement adjustments} & Apportioned at settlement & Rates, land tax, water, and rent are adjusted at the settlement date. \textbf{Trap:} do not expense the full annual charge and also record a purchaser recovery --- choose one consistent treatment. \\
+& \textbf{Post-settlement obligations} & Provision only & Warranties, make-good, and indemnities surviving settlement are provisioned when probable and estimable. \textbf{Trap:} do not also record a separate P\&L expense --- the provision entry is the expense. Release the provision as income once the obligation is discharged. \\
 \bottomrule
 \end{longtable}}
 
 \begin{note}[Sony Outgoings --- This Fund]
-Sony (336~sqm, holdover) pays an estimated quarterly advance. Each period: (1)~confirm the gross expense is in P\&L; (2)~confirm any advance is held as a balance sheet liability, not recognised as income on receipt; (3)~confirm the recovery has been billed and recorded as a separate income line or outgoings receivable; (4)~assess whether the annual washup is due; (5)~if a CPI review date has been reached, apply the escalation per \S\ref{sec:grp4a}. Confirm 5Point and Popgun recovery entitlement under each lease schedule.
+Sony (336~sqm, holdover) pays an estimated quarterly advance. Each period: (1)~confirm the gross outgoing is in P\&L as an expense; (2)~confirm the advance is held as a balance sheet liability, not recognised as income on receipt; (3)~confirm the recovery has been billed and recorded as a separate income line or outgoings receivable; (4)~assess whether the annual washup is due; (5)~if a CPI review date has been reached, apply the escalation per \S\ref{sec:grp4a}. Confirm 5Point and Popgun recovery entitlement under each lease schedule.
 \end{note}
-
-\paragraph{Disposal / Post-Option Exercise --- Payment on Behalf of Purchaser}
-
-Once the Call Option is exercised, costs continue to be incurred by both the vendor trust and the purchaser. The same payment-on-behalf logic applies: if the trust pays a cost that is contractually the purchaser's obligation, the payment is a balance sheet receivable from the purchaser --- not a trust expense. The additional disposal-specific risks are deferring sale costs and then also expensing them, or double-counting settlement adjustments.
-
-{\small\sffamily
-\begin{longtable}{@{} L{3.0cm} L{2.2cm} L{7.5cm} @{}}
-\rowcolor{navy}
-\textcolor{white}{\bfseries Type of Cost} & \textcolor{white}{\bfseries Who Bears It} & \textcolor{white}{\bfseries Guidance \& Trap} \\
-\midrule
-\endfirsthead
-\rowcolor{navy}\textcolor{white}{\bfseries Type of Cost} & \textcolor{white}{\bfseries Who Bears It} & \textcolor{white}{\bfseries Guidance \& Trap} \\
-\midrule
-\endhead
-\textbf{Vendor holding costs} & Vendor --- P\&L expense & Insurance, rates, utilities, and management fees incurred while the trust holds the property remain P\&L expenses. \textbf{Trap:} do not defer these as sale costs and also record them as an expense --- that charges P\&L twice. \\
-\rowcolor{warmgray}
-\textbf{Deferred sale costs} & Vendor --- balance sheet until settlement & Costs exclusively connected to achieving the sale (agent commission, vendor legal, due diligence, marketing) are deferred on the balance sheet and offset against the disposal gain at settlement. Current balance: \$133,732. \textbf{Trap:} do not defer a cost on the balance sheet and also record it as a P\&L expense in the same period. \\
-\textbf{Cost paid on behalf of purchaser} & Purchaser --- balance sheet receivable & If the trust pays a cost contractually borne by the purchaser, record a balance sheet receivable, not an expense. \textbf{Trap:} do not expense a payment the purchaser must reimburse. Confirm the contractual allocation with the vendor solicitor before posting. \\
-\rowcolor{warmgray}
-\textbf{Settlement adjustments} & Apportioned at settlement & Rates, land tax, water, and rent are adjusted as at the settlement date. \textbf{Trap:} do not expense the full annual charge and separately record a purchaser recovery --- or accrue the full annual charge and then also reduce proceeds by the same amount. Apply one consistent treatment. \\
-\textbf{Post-settlement vendor obligations} & Vendor --- provision only & Warranties, make-good, and indemnities that survive settlement are the trust's obligations. Raise a provision when the obligation is probable and reliably estimable. \textbf{Trap:} do not expense an estimated obligation and also raise a provision for the same amount --- the provision entry is the expense. Release the provision as income when the obligation is discharged. \\
-\bottomrule
-\end{longtable}}
 
 
 % ============================================================================
