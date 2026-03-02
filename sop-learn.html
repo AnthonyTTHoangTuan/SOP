@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>22 Constance St Unit Trust — SOP Learning Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0F2240;--navy2:#162D54;--navy3:#1E3A6A;
+  --steel:#2C5F8A;--steel2:#3A72A0;--steellight:#4A82B0;
+  --sky:#C8DDF0;--palesky:#E8F2FA;
+  --gold:#C49A00;--gold2:#D9B020;--gold3:#E8C840;--goldpale:#FDF8E6;
+  --bg:#F6F4F0;--bg2:#EEECE6;--bg3:#E3DED4;
+  --white:#FFFFFF;--card:#FAFAF8;
+  --ink:#1A2030;--ink2:#2E3A4A;--ink3:#4A5668;--ink4:#7A8898;
+  --red:#A82020;--redbg:#FDF0F0;
+  --green:#1A6B3A;--greenbg:#EAF7EE;
+  --amber:#B86E00;--amberbg:#FEF8ED;
+  --teal:#167A6A;--tealbg:#EAF7F4;
+  --r:12px;--rl:18px;
+  --sh:0 2px 12px rgba(15,34,64,.07),0 1px 4px rgba(15,34,64,.04);
+  --sh-md:0 8px 30px rgba(15,34,64,.12),0 2px 8px rgba(15,34,64,.06);
+  --sh-lg:0 20px 60px rgba(15,34,64,.16),0 4px 16px rgba(15,34,64,.08);
+}
+
+html{scroll-behavior:smooth;font-size:15px}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;min-height:100vh;overflow-x:hidden}
+
+/* grain */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+
+::-webkit-scrollbar{width:7px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--navy),var(--steel));border-radius:4px}
+
+/* ── LAYOUT ── */
+.app{display:flex;min-height:100vh}
+.sidebar{position:fixed;top:0;left:0;height:100vh;width:260px;min-width:260px;background:var(--navy);overflow-y:auto;overflow-x:hidden;padding:.5rem 0 3rem;z-index:9999;box-shadow:4px 0 24px rgba(15,34,64,.3);transform:translateX(-100%);transition:transform .32s cubic-bezier(.25,.46,.45,.94)}
+.sidebar.open{transform:translateX(0)}
+.ov{display:none;position:fixed;inset:0;background:rgba(10,18,32,.55);z-index:9998;cursor:pointer;backdrop-filter:blur(3px)}
+.ov.show{display:block}
+.main-wrap{flex:1;display:flex;flex-direction:column;transition:margin-left .32s cubic-bezier(.25,.46,.45,.94)}
+@media(min-width:901px){body.sidebar-open .main-wrap{margin-left:260px}}
+.main{flex:1;padding:1.8rem 2rem 6rem;max-width:940px;margin:0 auto;width:100%}
+
+/* ── SIDEBAR ── */
+.sb-logo{padding:1.4rem 1.2rem 1rem;border-bottom:1px solid rgba(196,154,0,.2)}
+.sb-logo-title{font-family:'Playfair Display',serif;font-size:.88rem;color:var(--gold2);font-weight:600;line-height:1.3}
+.sb-logo-sub{font-size:.58rem;color:rgba(200,221,240,.4);letter-spacing:.15em;text-transform:uppercase;margin-top:.2rem;font-weight:500}
+
+.nav-cat{font-size:.52rem;font-weight:700;text-transform:uppercase;letter-spacing:2.2px;color:rgba(196,154,0,.6);padding:.9rem 1rem .2rem;display:flex;align-items:center;gap:.5rem}
+.nav-cat::before{content:'';display:inline-block;width:12px;height:1px;background:rgba(196,154,0,.4);flex-shrink:0}
+
+.nav-grp-btn{width:100%;text-align:left;background:none;border:none;color:rgba(200,221,240,.65);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;padding:.38rem 1rem .38rem 1.15rem;cursor:pointer;display:flex;align-items:center;gap:.35rem;transition:.18s;border-radius:0}
+.nav-grp-btn:hover{color:var(--gold2);background:rgba(196,154,0,.07)}
+.nav-grp-btn .arr{font-size:.42rem;transition:transform .22s;color:var(--gold);min-width:.5rem;margin-left:auto}
+.nav-grp-btn.open .arr{transform:rotate(90deg)}
+.nav-grp-btn .cnt{font-size:.52rem;background:rgba(196,154,0,.12);color:var(--gold2);padding:1px .38rem;border-radius:5px;font-weight:700;border:1px solid rgba(196,154,0,.2)}
+.nav-items{display:none;padding-left:.1rem}.nav-items.show{display:block}
+.nav-item{display:block;width:100%;text-align:left;background:none;border:none;color:rgba(200,221,240,.45);font-family:'DM Sans',sans-serif;font-size:.69rem;font-weight:400;padding:.32rem .7rem .32rem 1.85rem;cursor:pointer;transition:.16s;border-left:2px solid transparent;line-height:1.4}
+.nav-item:hover{color:rgba(200,221,240,.8);background:rgba(196,154,0,.05)}
+.nav-item.active{color:var(--gold2);background:rgba(196,154,0,.08);border-left-color:var(--gold);font-weight:600}
+
+/* ── HEADER / HAMBURGER ── */
+.topbar{position:sticky;top:0;z-index:90;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);border-bottom:1px solid rgba(196,154,0,.25);display:flex;align-items:center;padding:.55rem 1.4rem;gap:1rem;box-shadow:0 2px 20px rgba(15,34,64,.25)}
+.mob-btn{width:40px;height:40px;background:rgba(196,154,0,.12);border:1px solid rgba(196,154,0,.25);border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:.2s;flex-shrink:0}
+.mob-btn:hover{background:rgba(196,154,0,.2)}
+.mob-btn span{display:block;width:18px;height:2px;background:var(--gold2);border-radius:2px;transition:.25s}
+.mob-btn.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-btn.is-open span:nth-child(2){opacity:0}
+.mob-btn.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.topbar-title{font-family:'Playfair Display',serif;font-size:.88rem;color:var(--gold2);font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-ver{font-size:.58rem;color:rgba(200,221,240,.35);letter-spacing:.15em;text-transform:uppercase}
+
+/* ── SCORE BAR ── */
+.score-bar{position:sticky;top:53px;z-index:5;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,var(--navy) 100%);border-bottom:1px solid rgba(196,154,0,.2);padding:.55rem 1.4rem .45rem;display:flex;flex-direction:column;gap:.28rem;box-shadow:0 3px 18px rgba(15,34,64,.28)}
+.score-bar-top{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+
+.sb-chip{display:flex;align-items:center;gap:.22rem;border-radius:7px;padding:.15rem .44rem .15rem .3rem;border:1px solid transparent;transition:transform .15s;cursor:default}
+.sb-chip:hover{transform:translateY(-1px)}
+.sb-chip-icon{font-size:.75rem;line-height:1;flex-shrink:0}
+.sb-chip-val{font-weight:700;font-family:'JetBrains Mono',monospace;font-size:.74rem;min-width:1rem;text-align:right}
+.sb-chip-lbl{font-weight:600;font-family:'DM Sans',sans-serif;font-size:.56rem;letter-spacing:.12px;opacity:.8;text-transform:uppercase}
+
+.sb-chip--ok{background:linear-gradient(135deg,#064e2b,#0a6535);border-color:rgba(34,197,94,.28)}
+.sb-chip--ok .sb-chip-val{color:#4ade80}.sb-chip--ok .sb-chip-lbl{color:#86efac}
+.sb-chip--no{background:linear-gradient(135deg,#1e1e2e,#2a1a2e);border-color:rgba(107,33,168,.28)}
+.sb-chip--no .sb-chip-icon{color:#f87171;font-style:normal;font-weight:900;font-size:.68rem;font-family:'JetBrains Mono',monospace}
+.sb-chip--no .sb-chip-val{color:#e879f9}.sb-chip--no .sb-chip-lbl{color:#c084fc}
+.sb-chip--wild73{background:linear-gradient(135deg,#1a2d4a,#1e3d60);border-color:rgba(245,158,11,.25)}
+.sb-chip--wild73 .sb-chip-val{color:#fcd34d}.sb-chip--wild73 .sb-chip-lbl{color:#fde68a}
+.sb-chip--wild52{background:linear-gradient(135deg,#1c1207,#2e1d08);border-color:rgba(217,119,6,.25)}
+.sb-chip--wild52 .sb-chip-val{color:#fb923c}.sb-chip--wild52 .sb-chip-lbl{color:#fed7aa}
+.sb-chip--minus{background:linear-gradient(135deg,#0f0c2e,#1a1654);border-color:rgba(99,102,241,.25)}
+.sb-chip--minus .sb-chip-icon{color:#facc15;font-size:.68rem}
+.sb-chip--minus .sb-chip-val{color:#818cf8}.sb-chip--minus .sb-chip-lbl{color:#a5b4fc}
+
+.score-total-wrap{display:flex;align-items:center;gap:.28rem;background:rgba(196,154,0,.1);border-radius:8px;padding:.15rem .52rem .15rem .38rem;margin-left:.2rem;border:1px solid rgba(196,154,0,.3);box-shadow:0 0 12px rgba(196,154,0,.08);transition:background .4s}
+.score-total-wrap .stl{font-size:.56rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(196,154,0,.65);font-family:'DM Sans',sans-serif}
+.score-total-wrap .stv{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.84rem;color:var(--gold2);letter-spacing:-.01em}
+
+.vl-prog{color:rgba(200,221,240,.35);font-weight:500;font-family:'JetBrains Mono',monospace;font-size:.64rem;margin-left:auto;letter-spacing:.01em}
+
+/* ── QDOTS ── */
+.qdots{display:flex;flex-wrap:wrap;gap:3px;padding:.1rem 0}
+.qdot{width:11px;height:11px;border-radius:50%;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);transition:all .3s;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.qdot.ok{background:linear-gradient(135deg,#22c55e,#15803d);border-color:rgba(34,197,94,.4);transform:scale(1.18);box-shadow:0 0 6px rgba(34,197,94,.35)}
+.qdot.ok::after{content:'🥇';font-size:6px;line-height:1}
+.qdot.no{background:linear-gradient(135deg,#3b1f6e,#6b21a8);border-color:rgba(168,85,247,.4);transform:scale(1.18);box-shadow:0 0 6px rgba(168,85,247,.35)}
+.qdot.no::after{content:'✗';font-size:6px;color:#f87171;font-weight:900}
+.qdot.wild73{background:linear-gradient(135deg,#1e3a5f,#1e4a8a);border-color:rgba(245,158,11,.4);transform:scale(1.18);box-shadow:0 0 8px rgba(245,158,11,.35)}
+.qdot.wild73::after{content:'🌻';font-size:6px}
+.qdot.wild52{background:linear-gradient(135deg,#2e1d08,#451e08);border-color:rgba(249,115,22,.35);transform:scale(1.18);box-shadow:0 0 8px rgba(249,115,22,.3)}
+.qdot.wild52::after{content:'🍂';font-size:6px}
+.qdot.minus{background:linear-gradient(135deg,#0f0c2e,#1e1b6e);border-color:rgba(99,102,241,.4);transform:scale(1.18);box-shadow:0 0 8px rgba(99,102,241,.35)}
+.qdot.minus::after{content:'⚡';font-size:6px}
+@keyframes dotPop{0%{transform:scale(.3) rotate(-180deg)}60%{transform:scale(1.32) rotate(10deg)}100%{transform:scale(1.18) rotate(0)}}
+.qdot.ok,.qdot.no,.qdot.wild73,.qdot.wild52,.qdot.minus{animation:dotPop .4s cubic-bezier(.34,1.56,.64,1) forwards}
+
+/* ── HERO ── */
+.hero{position:relative;padding:3.2rem 2.2rem 2.8rem;text-align:center;background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 50%,var(--navy3) 100%);overflow:hidden;border-radius:0}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(196,154,0,.2) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(196,154,0,.6) 50%,transparent)}
+.hero-icons{display:flex;justify-content:center;gap:.9rem;margin-bottom:.8rem;font-size:1.35rem;position:relative;z-index:2;opacity:.65}
+.hero-icons span{display:inline-block;animation:iconBounce 2.8s ease-in-out infinite}
+.hero-icons span:nth-child(2){animation-delay:.12s}
+.hero-icons span:nth-child(3){animation-delay:.24s}
+.hero-icons span:nth-child(4){animation-delay:.36s}
+.hero-icons span:nth-child(5){animation-delay:.48s}
+@keyframes iconBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.55rem,4vw,2.5rem);font-weight:400;font-style:italic;color:var(--goldpale);letter-spacing:.01em;line-height:1.2;position:relative;z-index:2}
+.hero h1 strong{font-style:normal;font-weight:700;color:var(--gold2)}
+.hero .sub{font-size:.68rem;color:rgba(200,221,240,.38);margin-top:.6rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;position:relative;z-index:2}
+
+/* ── SECTION ── */
+.section{display:none}.section.visible{display:block}
+@keyframes secFade{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
+.section.visible{animation:secFade .38s ease forwards}
+
+.sec-hdr{background:linear-gradient(150deg,var(--navy) 0%,var(--navy2) 100%);color:var(--goldpale);padding:22px 26px 18px;border-radius:16px 16px 0 0;position:relative;overflow:hidden;width:100%;box-sizing:border-box}
+.sec-hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 100% 80% at 50% -20%,rgba(196,154,0,.1) 0%,transparent 70%)}
+.sec-hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(196,154,0,.5),transparent)}
+.sec-badge{display:inline-block;font-family:'DM Sans',sans-serif;font-size:.53rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 12px;border-radius:5px;margin-bottom:9px;position:relative;border:1px solid;background:rgba(196,154,0,.12);border-color:rgba(196,154,0,.28);color:var(--gold3)}
+.sec-hdr h2{font-family:'Playfair Display',serif;font-size:clamp(1.05rem,3.5vw,1.3rem);font-weight:400;letter-spacing:.01em;margin:0 0 3px;line-height:1.25;color:var(--goldpale);position:relative;word-break:break-word}
+.sec-hdr .bc{font-size:.6rem;color:rgba(200,221,240,.35);font-family:'DM Sans',sans-serif;position:relative}
+.sec-meta{background:var(--card);border:1px solid var(--bg3);border-top:none;border-radius:0 0 12px 12px;display:flex;align-items:center;gap:.55rem;padding:9px 24px;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:500;color:var(--ink4);margin-bottom:22px;flex-wrap:wrap;width:100%;box-sizing:border-box}
+.sec-meta .qc{color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:700}
+
+/* ── LESSON CARD ── */
+.lcard{background:var(--card);border:1px solid var(--bg3);border-radius:var(--r);padding:1.4rem 1.5rem;margin-bottom:1.1rem;box-shadow:var(--sh)}
+.lcard h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:.7rem}
+.lcard p{font-size:.83rem;line-height:1.78;color:var(--ink2);margin-bottom:.6rem}
+.lcard p:last-child{margin-bottom:0}
+.lcard ul{padding-left:1.2rem;margin-bottom:.6rem}
+.lcard ul li{font-size:.83rem;line-height:1.78;color:var(--ink2);margin-bottom:.2rem}
+
+.callout{border-radius:var(--r);padding:1rem 1.1rem;margin:1rem 0;position:relative;border-left:4px solid}
+.callout.critical{background:var(--redbg);border-color:var(--red)}
+.callout.critical .callout-hdr{color:var(--red);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem;display:flex;align-items:center;gap:.3rem}
+.callout.warning{background:var(--amberbg);border-color:var(--amber)}
+.callout.warning .callout-hdr{color:var(--amber);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem;display:flex;align-items:center;gap:.3rem}
+.callout.note{background:var(--tealbg);border-color:var(--teal)}
+.callout.note .callout-hdr{color:var(--teal);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem;display:flex;align-items:center;gap:.3rem}
+.callout p{font-size:.8rem;line-height:1.72;color:var(--ink2);margin:0}
+
+.data-table{width:100%;border-collapse:collapse;font-size:.78rem;margin:1rem 0}
+.data-table th{background:var(--navy);color:var(--goldpale);padding:.55rem .8rem;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.72rem;text-align:left}
+.data-table td{padding:.48rem .8rem;border-bottom:1px solid var(--bg3);color:var(--ink2);line-height:1.6;vertical-align:top}
+.data-table tr:nth-child(even) td{background:var(--bg)}
+.data-table tr:hover td{background:var(--palesky)}
+.case-num{display:inline-flex;width:22px;height:22px;background:var(--navy);color:var(--goldpale);border-radius:50%;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+
+/* ── KEY FIGURE ── */
+.kf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;margin:1rem 0}
+.kf-card{background:var(--card);border:1px solid var(--bg3);border-radius:10px;padding:.85rem 1rem;box-shadow:var(--sh);border-top:3px solid var(--navy)}
+.kf-card.gold{border-top-color:var(--gold)}
+.kf-card.red{border-top-color:var(--red)}
+.kf-card.teal{border-top-color:var(--teal)}
+.kf-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--ink4);margin-bottom:.2rem}
+.kf-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:600;color:var(--navy);margin-bottom:.15rem}
+.kf-note{font-size:.67rem;color:var(--ink3);line-height:1.5}
+
+/* ── QUIZ ── */
+.qcard{border:1px solid var(--bg3);border-radius:12px;overflow:hidden;background:var(--card);margin-top:1rem;box-shadow:var(--sh);transition:.2s}
+.qcard:hover{box-shadow:var(--sh-md);transform:translateY(-1px)}
+.qlbl{background:linear-gradient(135deg,var(--navy),var(--navy2));color:var(--goldpale);padding:10px 22px;display:flex;justify-content:space-between;align-items:center}
+.qlbl .qnum{font-size:.6rem;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:rgba(200,221,240,.45);font-family:'DM Sans',sans-serif}
+.qlbl .qbadge{font-size:.56rem;background:rgba(196,154,0,.12);border:1px solid rgba(196,154,0,.22);color:var(--gold3);padding:3px 10px;border-radius:5px;font-weight:600}
+.qbody{padding:20px 24px 16px}
+.qt{font-family:'Playfair Display',serif;font-size:.88rem;color:var(--ink);line-height:1.72;margin-bottom:.9rem;font-weight:500}
+.qopts{display:flex;flex-direction:column;gap:.3rem}
+.qo{background:var(--card);border:1.5px solid var(--bg3);border-radius:10px;padding:.5rem .9rem;cursor:pointer;transition:.2s;font-size:.79rem;line-height:1.55;display:flex;align-items:flex-start;gap:.45rem;font-family:'DM Sans',sans-serif}
+.qo:hover:not(.dis){border-color:var(--steellight);background:var(--palesky);transform:translateX(3px)}
+.lt{min-width:1.1rem;height:1.1rem;border-radius:50%;background:var(--bg2);border:1.5px solid var(--bg3);display:flex;align-items:center;justify-content:center;font-size:.54rem;font-weight:700;color:var(--steel);flex-shrink:0;margin-top:.1rem;transition:.2s}
+.qo:hover:not(.dis) .lt{background:var(--steel);color:#fff}
+.qo.sc{background:var(--greenbg);border-color:var(--green);color:var(--green)}
+.qo.sc .lt{background:var(--green);color:#fff;border-color:var(--green)}
+.qo.sw{background:var(--redbg);border-color:var(--red);color:var(--red)}
+.qo.sw .lt{background:var(--red);color:#fff;border-color:var(--red)}
+.qo.shc{background:var(--greenbg);border-color:var(--green);color:var(--green);opacity:.7}
+.qo.shc .lt{background:var(--green);color:#fff}
+.qo.dis{cursor:default;pointer-events:none}
+.qfb{display:none;margin-top:.75rem;padding:.65rem .85rem;border-radius:9px;font-size:.77rem;line-height:1.6;font-weight:500;border:1px solid}
+.qfb.show.ok{display:block;background:var(--greenbg);border-color:var(--green);color:var(--green)}
+.qfb.show.no{display:block;background:var(--redbg);border-color:var(--red);color:var(--red)}
+
+/* ── NAV BUTTONS ── */
+.nav-btns{display:flex;gap:.8rem;margin-top:2.2rem;flex-wrap:wrap;align-items:center}
+.btn{font-family:'DM Sans',sans-serif;font-size:.77rem;font-weight:600;padding:.6rem 1.35rem;border-radius:9px;border:none;cursor:pointer;transition:.2s;letter-spacing:.02em}
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy3));color:var(--goldpale);box-shadow:0 2px 12px rgba(15,34,64,.25)}
+.btn-primary:hover{box-shadow:0 4px 20px rgba(15,34,64,.35);transform:translateY(-1px)}
+.btn-ghost{background:var(--card);border:1.5px solid var(--bg3);color:var(--ink3)}
+.btn-ghost:hover{border-color:var(--steel);color:var(--navy);background:var(--palesky)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-weight:700}
+.btn-gold:hover{box-shadow:0 4px 18px rgba(196,154,0,.35);transform:translateY(-1px)}
+
+/* ── PHASE BADGE ── */
+.phase-badge{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,var(--navy),var(--navy2));color:var(--gold2);font-size:.68rem;font-weight:700;padding:.35rem .85rem;border-radius:6px;border:1px solid rgba(196,154,0,.2);margin-bottom:.6rem;font-family:'DM Sans',sans-serif;letter-spacing:.05em}
+
+/* ── STEP CARD ── */
+.step-card{display:flex;gap:1rem;background:var(--card);border:1px solid var(--bg3);border-radius:12px;padding:1rem 1.2rem;margin-bottom:.7rem;box-shadow:var(--sh)}
+.step-num{width:36px;height:36px;background:linear-gradient(135deg,var(--navy),var(--steel));color:var(--goldpale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.8rem;flex-shrink:0}
+.step-body h4{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.step-body p{font-size:.77rem;color:var(--ink3);line-height:1.65;margin:0}
+.step-meta{display:flex;gap:.5rem;margin-top:.3rem;flex-wrap:wrap}
+.step-tag{font-size:.58rem;background:var(--bg2);border:1px solid var(--bg3);border-radius:5px;padding:2px 8px;color:var(--ink4);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.step-tag.cpg{background:var(--redbg);border-color:rgba(168,32,32,.2);color:var(--red)}
+.step-tag.coord{background:var(--tealbg);border-color:rgba(22,122,106,.2);color:var(--teal)}
+.step-tag.rev{background:var(--goldpale);border-color:rgba(196,154,0,.2);color:#8A6800}
+
+/* rule legend */
+.rule-legend{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:12px;padding:1.1rem 1.4rem;margin:1.2rem 0;color:var(--goldpale)}
+.rule-legend h4{font-family:'Playfair Display',serif;font-size:.92rem;font-weight:400;color:var(--gold2);margin-bottom:.8rem;letter-spacing:.01em}
+.rule-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;font-size:.78rem}
+.rule-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.rule-dot.ok{background:linear-gradient(135deg,#22c55e,#15803d)}
+.rule-dot.no{background:linear-gradient(135deg,#6b21a8,#4c1d95)}
+.rule-dot.wild73{background:linear-gradient(135deg,#1e3a5f,#1e4a8a);border:1px solid rgba(245,158,11,.5)}
+.rule-dot.wild52{background:linear-gradient(135deg,#2e1d08,#451e08);border:1px solid rgba(249,115,22,.4)}
+.rule-dot.minus{background:linear-gradient(135deg,#0f0c2e,#1e1b6e)}
+.rule-val{font-family:'JetBrains Mono',monospace;font-weight:700;min-width:3.5rem;font-size:.76rem}
+.rule-val.ok{color:#4ade80}.rule-val.wild73{color:#fcd34d}.rule-val.wild52{color:#fb923c}.rule-val.no{color:#e879f9}.rule-val.minus{color:#818cf8}
+.rule-desc{color:rgba(200,221,240,.6);line-height:1.5}
+
+@media(max-width:900px){
+  .main{padding:1.2rem 1rem 5rem}
+  .kf-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+}
+@media(max-width:500px){
+  .score-bar-top{flex-wrap:wrap;gap:.25rem}
+  .vl-prog{width:100%;margin-left:0;text-align:right;margin-top:.2rem}
+  .hero h1{font-size:1.45rem}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-title">22 Constance St Unit Trust</div>
+    <div class="sb-logo-sub">SOP v2.0 · Learning Hub · March 2026</div>
+  </div>
+  <div id="sb-nav"></div>
+</div>
+<div class="ov" id="ov"></div>
+
+<!-- MAIN WRAP -->
+<div class="main-wrap" id="mainwrap">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <button class="mob-btn" id="mb" aria-label="Toggle sidebar">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="topbar-title">SOP Learning Hub</div>
+    <div class="topbar-ver">v2.0 · 2026</div>
+  </div>
+
+  <!-- SCORE BAR -->
+  <div class="score-bar">
+    <div class="score-bar-top">
+      <div class="sb-chip sb-chip--ok" title="Correct answers (+1 each)">
+        <span class="sb-chip-icon">🥇</span>
+        <span class="sb-chip-val" id="sV">0</span>
+        <span class="sb-chip-lbl">Correct</span>
+      </div>
+      <div class="sb-chip sb-chip--no" title="Missed answers (0)">
+        <span class="sb-chip-icon" style="font-style:normal;font-weight:900;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#f87171">✗</span>
+        <span class="sb-chip-val" id="wV">0</span>
+        <span class="sb-chip-lbl">Missed</span>
+      </div>
+      <div class="sb-chip sb-chip--wild73" title="Lucky Shot: correct surrounded by 1+2 wrong (+0.73)">
+        <span class="sb-chip-icon">🌻</span>
+        <span class="sb-chip-val" id="wild73V">0</span>
+        <span class="sb-chip-lbl">Lucky</span>
+      </div>
+      <div class="sb-chip sb-chip--wild52" title="Fluke: correct surrounded by 2+ wrong on each side (+0.52)">
+        <span class="sb-chip-icon">🍂</span>
+        <span class="sb-chip-val" id="wild52V">0</span>
+        <span class="sb-chip-lbl">Fluke</span>
+      </div>
+      <div class="sb-chip sb-chip--minus" title="Foul: 3+ consecutive wrong (−1 each)">
+        <span class="sb-chip-icon">⚡</span>
+        <span class="sb-chip-val" id="minusV">0</span>
+        <span class="sb-chip-lbl">Foul</span>
+      </div>
+      <div class="score-total-wrap" id="stw">
+        <span class="stl">Score</span>
+        <span class="stv" id="totalPtsV">0</span>
+      </div>
+      <span class="vl-prog" id="aV">0 / 0 answered</span>
+    </div>
+    <div class="qdots" id="qdots"></div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-icons">
+      <span>🏢</span><span>📊</span><span>⚖️</span><span>🔍</span><span>✅</span>
+    </div>
+    <h1><em>Master the</em> <strong>Reporting Pack SOP</strong></h1>
+    <div class="sub">22 Constance St Unit Trust · Fund Accounting · Monthly Reporting</div>
+  </div>
+
+  <div class="main">
+    <div id="sections-root"></div>
+  </div>
+
+  <div class="nav-btns" id="nav-btns" style="padding:0 2rem 2rem;max-width:940px;margin:0 auto;width:100%">
+    <button class="btn btn-ghost" onclick="goPrev()">← Previous</button>
+    <button class="btn btn-primary" onclick="goNext()">Next Section →</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DATA — sections with lesson content + MCQs
+// ═══════════════════════════════════════════════════════
+const D = [
+
+// ─── SECTION 0: OVERVIEW ────────────────────────────────
+{id:'overview', grp:'Introduction', title:'SOP Overview & Workflow',
+badge:'Introduction',
+lesson:`
+<div class="lcard">
+  <h3>What This SOP Covers</h3>
+  <p>This SOP governs the monthly reporting pack for the <strong>22 Constance St Unit Trust</strong> — a commercial property trust in Brisbane (QLD) operating under a Put and Call Option Deed (PCOD) for the sale of its investment property.</p>
+  <p>The monthly reporting cycle runs across <strong>3 phases and 10 steps</strong>, with three key roles:</p>
+  <ul>
+    <li><strong>Preparer</strong> — UFS Fund Accounting (compiles entries, prepares workbook)</li>
+    <li><strong>Coordinator</strong> — Reviews bank info requests, coordinates data flow</li>
+    <li><strong>CPG</strong> — Property manager; provides bank information, invoices, tenancy data</li>
+    <li><strong>1st &amp; 2nd Reviewer</strong> — Independent review and sign-off</li>
+  </ul>
+</div>
+<div class="lcard">
+  <h3>The 3-Phase Workflow</h3>
+  <div class="phase-badge">📥 Phase 1 — Data Collection (Steps 1–6)</div>
+  <div class="step-card"><div class="step-num">1</div><div class="step-body"><h4>Obtain prior-period workbook</h4><p>Preparer retrieves the approved pack from the UFS Shared Folder before any new entries are made.</p><div class="step-meta"><span class="step-tag">Preparer</span><span class="step-tag">~20th of month</span></div></div></div>
+  <div class="step-card"><div class="step-num">2</div><div class="step-body"><h4>Archive prior period; open new workbook</h4><p>Save the prior-period workbook to archive, then roll forward the template for the new period.</p><div class="step-meta"><span class="step-tag">Preparer</span></div></div></div>
+  <div class="step-card"><div class="step-num">3</div><div class="step-body"><h4>Obtain Yardi trial balance &amp; revise</h4><p>Export TB from Yardi, apply reclassification adjustments (trust/sale/leasing items), import into workbook. Reconcile to zero — any difference is a reclassification error.</p><div class="step-meta"><span class="step-tag">Preparer</span><span class="step-tag">BD1</span></div></div></div>
+  <div class="step-card"><div class="step-num">4</div><div class="step-body"><h4>Prepare bank information request</h4><p>Draft Excel-based bank info request for CPG with all queries about unidentified items, invoices, and remittances.</p><div class="step-meta"><span class="step-tag">Preparer</span><span class="step-tag">20th &amp; BD1</span></div></div></div>
+  <div class="step-card"><div class="step-num">5</div><div class="step-body"><h4>CPG responds &amp; uploads invoices</h4><p>CPG provides bank information responses and uploads invoices/remittances to SharePoint by BD1.</p><div class="step-meta"><span class="step-tag cpg">CPG</span><span class="step-tag">20th–BD1</span></div></div></div>
+  <div class="step-card"><div class="step-num">6</div><div class="step-body"><h4>Revise Yardi TB; import</h4><p>Apply reclassifications, import revised TB. If import errors → fix and reimport. Only proceed when clean.</p><div class="step-meta"><span class="step-tag">Preparer</span><span class="step-tag">BD1</span></div></div></div>
+
+  <div class="phase-badge" style="margin-top:.8rem">📋 Phase 2 — Compilation (Steps 7a–7j)</div>
+  <p style="font-size:.8rem;color:var(--ink3);margin:.4rem 0 .6rem">Property-level entries (7a–7e), then trust-level entries (7f–7j). Both streams run in parallel where possible.</p>
+  <table class="data-table">
+    <tr><th>Step</th><th>Description</th><th>Role</th></tr>
+    <tr><td>7a</td><td>Property-level entries (Categories A/B/C)</td><td>Preparer</td></tr>
+    <tr><td>7b</td><td>NAB cut-off Sundry Debtor entries (5-case coding)</td><td>Preparer</td></tr>
+    <tr><td>7c</td><td>StG interest (303.01) &amp; line fee (303.02) — cash basis</td><td>Preparer</td></tr>
+    <tr><td>7d</td><td>Insurance claim income &amp; cyclone capex</td><td>Preparer</td></tr>
+    <tr><td>7e</td><td>Update deferred cost of sale (709)</td><td>Preparer</td></tr>
+    <tr><td>7f</td><td>Trust-level amortisation (borrowing &amp; leasing costs)</td><td>Preparer</td></tr>
+    <tr><td>7g</td><td>Trust-level accruals (management fee, audit, ASIC, etc.)</td><td>Preparer</td></tr>
+    <tr><td>7h</td><td>Record trust receipts/payments (intercompany CPG)</td><td>Preparer</td></tr>
+    <tr><td>7i</td><td>Check for double-counts (accrual vs invoice)</td><td>Preparer</td></tr>
+    <tr><td>7j</td><td>Compile full reporting pack</td><td>Preparer</td></tr>
+  </table>
+
+  <div class="phase-badge" style="margin-top:.8rem">✅ Phase 3 — Review &amp; Distribution (Steps 8–10)</div>
+  <div class="step-card"><div class="step-num">8</div><div class="step-body"><h4>Send completed pack to reviewers</h4><p>Preparer distributes via UFS Shared Folder by BD4.</p></div></div>
+  <div class="step-card"><div class="step-num">9</div><div class="step-body"><h4>Independent review; sign checklists</h4><p>1st &amp; 2nd Reviewer document issues, sign NAV/BAS/Distribution checklists.</p><div class="step-meta"><span class="step-tag rev">Reviewer</span><span class="step-tag">BD5</span></div></div></div>
+  <div class="step-card"><div class="step-num">10</div><div class="step-body"><h4>Send to CPG; archive approved pack</h4><p>1st Reviewer sends approved NAV pack and monthly report to CPG. Once CPG approves, archive final pack.</p><div class="step-meta"><span class="step-tag cpg">CPG</span><span class="step-tag rev">Reviewer</span></div></div></div>
+</div>
+<div class="rule-legend">
+  <h4>📐 How Your Score Works</h4>
+  <div class="rule-row"><div class="rule-dot ok"></div><span class="rule-val ok">+1.00</span><span class="rule-desc">Correct answer (standard)</span></div>
+  <div class="rule-row"><div class="rule-dot no"></div><span class="rule-val no">0</span><span class="rule-desc">Incorrect answer</span></div>
+  <div class="rule-row"><div class="rule-dot minus"></div><span class="rule-val minus">−1.00</span><span class="rule-desc">Foul ⚡ — 3rd+ consecutive incorrect, or wrong adjacent to a foul</span></div>
+  <div class="rule-row"><div class="rule-dot wild73"></div><span class="rule-val wild73">+0.73</span><span class="rule-desc">Lucky Shot 🌻 — correct, but flanked by 2 wrong on one side, 1 on other</span></div>
+  <div class="rule-row"><div class="rule-dot wild52"></div><span class="rule-val wild52">+0.52</span><span class="rule-desc">Fluke 🍂 — correct, but flanked by 2+ wrong on each side</span></div>
+</div>
+`,
+qs:[
+  {q:"What is the correct order of the three phases in the monthly reporting cycle?",o:["Data Collection → Review → Compilation","Data Collection → Compilation → Review & Distribution","Compilation → Data Collection → Review","Review → Data Collection → Compilation"],a:1,x:"The correct order is: Phase 1 (Data Collection, Steps 1–6), Phase 2 (Compilation, Steps 7a–7j), Phase 3 (Review & Distribution, Steps 8–10)."},
+  {q:"Who is responsible for preparing the bank information request (Step 4)?",o:["CPG","1st Reviewer","Preparer","Coordinator"],a:2,x:"The Preparer drafts the Excel-based bank information request containing all queries, typically around the 20th and BD1."},
+  {q:"When must the Preparer deliver the completed pack to reviewers?",o:["BD1","BD2","BD4","BD5"],a:2,x:"Step 8 requires the Preparer to deliver the full reporting workbook via the UFS Shared Folder by BD4. Reviewers then have until BD5."},
+  {q:"How many steps are in Phase 2 (Compilation)?",o:["4","6","10","7"],a:2,x:"Phase 2 (Compilation) covers Steps 7a through 7j — that is 10 sub-steps covering both property-level and trust-level entries."},
+  {q:"What happens if the Yardi TB import in Step 6 contains errors?",o:["The Preparer proceeds to Phase 2 regardless","The Coordinator resolves the errors","The Preparer fixes reclassification errors and re-imports until clean","CPG is asked to re-upload invoices"],a:2,x:"If Step 6 import errors are found, the Preparer must fix the reclassification errors and repeat the import. The workflow only exits Phase 1b when the import is error-free."},
+]},
+
+// ─── SECTION 1: BANK TIMING ──────────────────────────────
+{id:'bank-timing', grp:'Group 1 — Identify', title:'1a · Bank Timing: Cash vs Sundry Debtor',
+badge:'Group 1',
+lesson:`
+<div class="lcard">
+  <h3>Why This Matters</h3>
+  <p>The Yardi ledger and NAB bank statement are reconciled monthly. Any difference is a <strong>timing difference only</strong> — not a classification error. Five mutually exclusive cases cover every scenario. The reconciliation must balance to zero.</p>
+  <div class="callout note"><div class="callout-hdr">ℹ️ Note</div><p>A Sundry Debtor entry corrects timing only — it does not change the underlying expense or income classification.</p></div>
+</div>
+<div class="lcard">
+  <h3>The 5 Cases</h3>
+  <table class="data-table">
+    <tr><th>Case</th><th>Condition</th><th>Action</th></tr>
+    <tr><td><span class="case-num">1</span></td><td>Yardi and bank agree this month</td><td><strong>No action required.</strong></td></tr>
+    <tr><td><span class="case-num">2</span></td><td>Yardi recorded last month; bank clears this month</td><td>Raise a Sundry Debtor entry — bank catching up. Reverses next month.</td></tr>
+    <tr><td><span class="case-num">3</span></td><td>Bank processed this month; Yardi records next month</td><td>Raise a Sundry Debtor entry this month; reverse in Yardi next month.</td></tr>
+    <tr><td><span class="case-num">4</span></td><td>Bank item with no matching Yardi entry</td><td>Unidentified — send bank info request to CPG. Hold in Sundry Debtor until confirmed. Do NOT post to P&amp;L until the nature is confirmed.</td></tr>
+    <tr><td><span class="case-num">5</span></td><td>Yardi entry with no matching bank item</td><td>Yardi ahead of bank — raise Sundry Debtor. Escalate to CPG if uncleared after two months.</td></tr>
+  </table>
+  <div class="callout critical"><div class="callout-hdr">🚨 Critical</div><p>For Case 4 (unidentified bank item): do NOT post to P&L until the nature is confirmed. It could be an insurance receipt, intercompany transfer, or government charge — each with a different treatment.</p></div>
+</div>
+<div class="lcard">
+  <h3>Quick Decision Test</h3>
+  <p><strong>Item in both Yardi AND bank this month?</strong> → Case 1, no action.</p>
+  <p><strong>Item in Yardi only?</strong> → Case 5 (Yardi ahead of bank).</p>
+  <p><strong>Item in bank only?</strong> → Case 4 if unidentified; Case 2 if Yardi recorded it last month.</p>
+  <p><strong>Bank cleared before Yardi recorded it?</strong> → Case 3.</p>
+</div>
+`,
+qs:[
+  {q:"The NAB bank statement shows a receipt that has no matching Yardi entry and the nature is unknown. Which case applies and what should the Preparer do?",o:["Case 2 — reverse next month","Case 4 — hold in Sundry Debtor; send bank info request to CPG","Case 5 — escalate if uncleared for 2 months","Case 1 — no action needed"],a:1,x:"Case 4 applies when the bank shows an item with no Yardi match and the nature is unidentified. The Preparer holds it in Sundry Debtor and sends a bank information request to CPG. Never post to P&L until confirmed."},
+  {q:"Yardi recorded a payment in March. The NAB bank statement for March does not show the payment clearing. What case applies?",o:["Case 1","Case 2","Case 3","Case 5"],a:3,x:"Case 5: Yardi has a recorded item that has not yet appeared in the bank. This means Yardi is ahead of the bank. Raise a Sundry Debtor entry, and escalate to CPG if still uncleared after two months."},
+  {q:"The bank clears a receipt in April that Yardi recorded in March. Which case applies in April?",o:["Case 1","Case 2","Case 3","Case 4"],a:1,x:"Case 2 applies: Yardi recorded last month, bank clears this month (bank is catching up). Raise a Sundry Debtor entry in April to bridge the gap; it reverses next month."},
+  {q:"What is the primary purpose of a Sundry Debtor entry in the bank reconciliation?",o:["To reclassify an expense to a different P&L account","To correct a timing difference between Yardi and the bank without changing the underlying classification","To record a new asset on the balance sheet","To defer income to a future period"],a:1,x:"Sundry Debtor entries correct timing differences only. They do not affect the underlying expense or income classification — they simply bridge the gap between when Yardi records an item and when the bank processes it."},
+  {q:"If a bank item from Case 5 (Yardi ahead of bank) remains uncleared after two months, what is the required action?",o:["Write it off as a bad debt","Continue holding in Sundry Debtor indefinitely","Escalate to CPG","Post it directly to P&L as income"],a:2,x:"If a Case 5 item (Yardi entry with no bank match) remains uncleared after two months, the Preparer must escalate the item to CPG for investigation and resolution."},
+]},
+
+// ─── SECTION 2: REPAIR VS CAPITAL ───────────────────────
+{id:'capex', grp:'Group 1 — Identify', title:'1b · Repair vs Maintenance vs Capital',
+badge:'Group 1',
+lesson:`
+<div class="lcard">
+  <h3>The Four Buckets</h3>
+  <p>Every invoice for work on the building must be assigned to one of four buckets before posting. Classification determines whether it's expensed immediately or capitalised.</p>
+  <p><strong>Authority:</strong> TR 97/23 (repairs), s25-10 ITAA 1997 (repairs deductible), Div 40 (plant depreciation), Div 43 (building write-off).</p>
+  <table class="data-table">
+    <tr><th>Bucket</th><th>Definition</th><th>Key Test</th></tr>
+    <tr><td><strong>Utilities</strong></td><td>Metered/billed consumption. No physical asset acquired.</td><td>Billed by a service authority based on consumption or fixed availability charge? → Utilities. Expense in period consumed.</td></tr>
+    <tr><td><strong>Maintenance</strong></td><td>Routine, scheduled servicing of existing asset. Keeps it in current condition; does not improve it.</td><td>Periodic, recurring, triggered by schedule/contract (not damage or failure)? → Maintenance. Expense directly.</td></tr>
+    <tr><td><strong>Repair</strong></td><td>Restores existing asset to its condition immediately before damage. No improvement beyond pre-damage state.</td><td>Apply TR 97/23 five-criteria test. All five must be met. → Repair. Expense directly.</td></tr>
+    <tr><td><strong>Capital</strong></td><td>Extends useful life, replaces a whole component, creates a new asset, materially improves capacity, or fulfils a new regulatory obligation.</td><td>Goes beyond restoring prior state? Replaces entire component? Creates new asset? → Capital. Capitalise and depreciate (Div 40 or 43).</td></tr>
+  </table>
+</div>
+<div class="lcard">
+  <h3>TR 97/23 — The Five Criteria for a "Repair"</h3>
+  <p>All five criteria must be satisfied to classify work as a <strong>repair</strong>:</p>
+  <ol style="padding-left:1.2rem;font-size:.83rem;color:var(--ink2);line-height:2">
+    <li>The same part is restored (not a new or different component)</li>
+    <li>No improvement over the pre-damage state</li>
+    <li>Not initial expenditure on this asset</li>
+    <li>The asset pre-existed the damage event</li>
+    <li>Not a whole-of-asset replacement</li>
+  </ol>
+  <div class="callout critical"><div class="callout-hdr">🚨 Critical — Cyclone Remediation</div><p>For cyclone damage invoices: each invoice must be individually reviewed. Some items may be repairs (restoring to prior state) and others capital (installing upgraded or new components). Do not bulk-classify all cyclone costs as repairs or capital. Also: add capital items to CGT cost base under s110-25.</p></div>
+</div>
+<div class="lcard">
+  <h3>CGT &amp; Tax Implications</h3>
+  <ul>
+    <li><strong>Repairs &amp; Maintenance:</strong> Deductible under s25-10 ITAA 1997. Expensed immediately.</li>
+    <li><strong>Capital (plant):</strong> Depreciate under Div 40. Add to cost base (s110-25).</li>
+    <li><strong>Capital (building):</strong> Depreciate under Div 43 (2.5% p.a. for commercial). Add to cost base.</li>
+    <li><strong>Utilities:</strong> Deductible in period consumed (operating expense).</li>
+  </ul>
+</div>
+`,
+qs:[
+  {q:"The trust pays for air-conditioning servicing under a quarterly maintenance contract. No breakdown occurred — this is routine. How should this be classified?",o:["Capital","Repair","Maintenance","Utility"],a:2,x:"Routine, scheduled servicing that keeps an asset in its current condition (not triggered by damage or failure) is Maintenance. It is expensed directly in the period incurred."},
+  {q:"Following cyclone damage, the trust replaces the entire roof with a structurally upgraded design. How should this cost be classified?",o:["Repair — because cyclone damage caused it","Maintenance — because it was a scheduled upgrade","Capital — because it replaces a whole component and improves beyond the pre-damage state","Utility — because the roof covers the whole building"],a:2,x:"A whole-component replacement that improves beyond the pre-damage state is Capital. Even though cyclone damage triggered it, the upgrade means it fails the TR 97/23 repair criteria. Capitalise under Div 43 and add to CGT cost base."},
+  {q:"An electrician patches damaged wiring that was working before the cyclone hit, restoring it exactly to its pre-damage condition. All five TR 97/23 criteria are met. How should this be classified?",o:["Capital","Repair","Maintenance","Utility"],a:1,x:"When all five TR 97/23 criteria are met — same part restored, no improvement, not initial expenditure, asset pre-existed the event, not whole-of-asset replacement — the cost is a Repair. Expense directly under s25-10."},
+  {q:"The trust receives a quarterly water and sewerage bill from the Brisbane City Council. How is this classified?",o:["Capital — because it relates to the building's infrastructure","Repair — because water pipes may need fixing","Maintenance — it is a recurring charge","Utility — billed by a service authority based on consumption/availability"],a:3,x:"Water and sewerage charges billed by a service authority based on consumption or fixed availability are Utilities. They are expensed in the period consumed with no balance sheet impact."},
+  {q:"Which legislation governs the depreciation of plant and equipment (as opposed to the building structure itself)?",o:["TR 97/23","s25-10 ITAA 1997","Division 40","Division 43"],a:2,x:"Division 40 governs depreciation of plant and equipment (movable assets like HVAC units, lifts). Division 43 governs the building structure itself (2.5% p.a. for commercial). s25-10 covers repair deductions; TR 97/23 is the ATO ruling on what constitutes a repair."},
+]},
+
+// ─── SECTION 3: ACCRUALS ─────────────────────────────────
+{id:'accruals', grp:'Group 2 — When It Builds', title:'2a · Accrual Lifecycle & Double-Count Risk',
+badge:'Group 2',
+lesson:`
+<div class="lcard">
+  <h3>The Accrual Lifecycle</h3>
+  <p>Trust-level costs (management fee, disposal fee, performance fee, audit, ASIC, trustee fee, legal) follow a five-state lifecycle. The most dangerous mistake is <strong>recording a new P&amp;L expense when an invoice arrives for a cost that was already accrued</strong>.</p>
+  <table class="data-table">
+    <tr><th>State</th><th>When It Applies</th><th>Action</th></tr>
+    <tr><td><strong>New</strong></td><td>Cost incurred this period. No invoice; no payment.</td><td>Record expense in P&amp;L <em>and</em> a liability on balance sheet. Obligation must be present at balance date (TR 97/7).</td></tr>
+    <tr><td><strong>Continue</strong></td><td>Prior-period accrual remains. No invoice; no payment; obligation still live.</td><td>Carry forward without change. Escalate if on balance sheet &gt;3 months without invoice.</td></tr>
+    <tr><td><strong>Invoice arrives</strong></td><td>Invoice received for a cost already accrued.</td><td><strong style="color:var(--red)">Clear the accrual against the payable/payment only. Do NOT post a new P&amp;L expense.</strong></td></tr>
+    <tr><td><strong>Revise</strong></td><td>Estimate has changed (fee recalculation, revised disposal cost).</td><td>Record only the <em>difference</em> as additional expense or income adjustment. Do not reverse and re-raise the full amount.</td></tr>
+    <tr><td><strong>Cease</strong></td><td>Obligation no longer exists (fee waived, contract terminated).</td><td>Release balance sheet accrual as income in this period. Document the reason.</td></tr>
+  </table>
+</div>
+<div class="lcard">
+  <h3>The #1 Double-Count Trap</h3>
+  <div class="callout critical"><div class="callout-hdr">🚨 Critical — Invoice Arrives</div><p><strong>Before posting any invoice:</strong> search the trial balance for an existing accrual for that cost. If one exists → clear the accrual only; do NOT post a new expense. If no accrual exists → post the expense directly. Never do both. Doing both doubles the P&amp;L charge.</p></div>
+</div>
+<div class="lcard">
+  <h3>Stale Accrual Rule</h3>
+  <p>Any accrual that has been on the balance sheet for <strong>more than 3 months without a matching invoice</strong> must be escalated. Stale accruals may represent:</p>
+  <ul>
+    <li>A cost that was waived or will not be invoiced → should be released as income</li>
+    <li>A supplier who has not invoiced yet → confirm the obligation is still live</li>
+    <li>A duplicate entry from a prior period → investigate and remove</li>
+  </ul>
+</div>
+`,
+qs:[
+  {q:"The management fee was accrued last month as a balance sheet liability. This month the invoice arrives for the same amount. What is the correct accounting treatment?",o:["Post the invoice as a new P&L expense and leave the accrual","Clear the accrual against the payable — do not post a new P&L expense","Reverse the accrual and then post the full invoice as an expense","Post 50% to P&L and 50% to the accrual"],a:1,x:"When an invoice arrives for a cost already accrued, the only correct action is to clear the accrual. The P&L expense was already recognised when the accrual was raised. Posting the invoice as a new expense creates a double-count."},
+  {q:"The disposal fee estimate increases by $8,000 due to a property revaluation. The existing accrual is $124,500. What should the Preparer do?",o:["Reverse the $124,500 accrual and raise a new accrual for $132,500","Record an additional $8,000 charge to P&L and increase the accrual by $8,000","Leave the accrual unchanged until settlement","Post $132,500 as a new expense and remove the old accrual"],a:1,x:"When an estimate changes, only the difference is recorded as additional expense ($8,000). Reversing the full original accrual and re-raising it would restate prior-period expense. Record only the incremental change."},
+  {q:"An accrual for audit fees has been on the balance sheet for 4 months with no invoice received. What is the required action?",o:["Continue to carry it forward — this is normal","Release it as income immediately without investigation","Escalate the stale accrual — confirm with the audit firm whether the obligation is still live","Reverse it and re-raise in the current period"],a:2,x:"Any accrual on the balance sheet for more than 3 months without a matching invoice must be escalated. The Preparer should confirm whether the obligation is still live; if not, release it as income and document the reason."},
+  {q:"Which ATO ruling establishes the requirement that an accrued obligation must be present at balance date for an accrual to be valid?",o:["TR 97/23","s25-10 ITAA 1997","TR 97/7","Division 40"],a:2,x:"TR 97/7 is the ATO's ruling on accruals. It establishes that an expense can only be accrued if the obligation exists at balance date. Do not accrue a cost that will only arise in a future period."},
+  {q:"The performance fee obligation is waived in writing by the responsible entity. What is the correct accounting treatment for the existing accrual?",o:["Leave it on the balance sheet in case the fee is reinstated","Release the accrual as income in the current period and document the waiver","Continue accruing monthly as normal","Convert the accrual to a liability note in the financial statements"],a:1,x:"When an obligation ceases (fee waived, contract terminated), the balance sheet accrual must be released as income in the current period. Document the reason. Never leave stale accruals on the balance sheet."},
+]},
+
+// ─── SECTION 4: AMORTISATION ─────────────────────────────
+{id:'amortisation', grp:'Group 2 — When It Builds', title:'2b · Amortisation vs Accrual',
+badge:'Group 2',
+lesson:`
+<div class="lcard">
+  <h3>The Key Distinction</h3>
+  <div class="callout note"><div class="callout-hdr">ℹ️ The Test</div><p><strong>Has cash already been paid?</strong> Yes → prepaid asset, amortise over the term. No → accrue the obligation. Never run both for the same cost. If the same cost appears on the balance sheet as both a prepaid asset and an accrual, one is a double-count.</p></div>
+</div>
+<div class="lcard">
+  <h3>Amortisation Lifecycle</h3>
+  <table class="data-table">
+    <tr><th>State</th><th>When It Applies</th><th>Action</th></tr>
+    <tr><td><strong>New prepayment</strong></td><td>Cash paid upfront for a future benefit with a defined term.</td><td>Record as prepaid asset. Set up amortisation schedule: total cost ÷ months of benefit. Active streams: insurance (12 months); borrowing costs (to June 2026); leasing commissions (over each lease term).</td></tr>
+    <tr><td><strong>Monthly charge</strong></td><td>Monthly amortisation from prepaid balance to expense.</td><td>Apply scheduled monthly amount. Do NOT also raise an accrual for the same cost.</td></tr>
+    <tr><td><strong>Further invoice arrives</strong></td><td>Supplementary invoice for same cost (e.g. premium adjustment).</td><td>Increase prepaid balance by the additional amount only. Revise remaining monthly charge. Do not expense the supplement immediately.</td></tr>
+    <tr><td><strong>Cease</strong></td><td>Loan repaid; lease terminates; policy cancelled.</td><td><strong>Write off entire remaining prepaid balance immediately.</strong> Do not continue monthly charge after the obligation ends.</td></tr>
+    <tr><td><strong>Revise schedule</strong></td><td>Term changes (loan extended, lease renewed).</td><td>Recalculate: remaining balance ÷ remaining months. Do not restate prior periods.</td></tr>
+  </table>
+</div>
+<div class="lcard">
+  <h3>Active Amortisation Streams — This Fund</h3>
+  <div class="kf-grid">
+    <div class="kf-card gold"><div class="kf-label">Insurance Premium</div><div class="kf-val">12-month</div><div class="kf-note">Spread evenly over policy year</div></div>
+    <div class="kf-card"><div class="kf-label">Borrowing Costs</div><div class="kf-val">To Jun 2026</div><div class="kf-note">St George facility — write off at settlement (s25-25(5))</div></div>
+    <div class="kf-card teal"><div class="kf-label">Leasing Commissions</div><div class="kf-val">Per lease</div><div class="kf-note">Sony (holdover), 5Point (Oct 2027), Popgun (Dec 2026)</div></div>
+  </div>
+  <div class="callout critical"><div class="callout-hdr">🚨 Critical — Lease/Loan Termination</div><p>If a lease terminates (especially Sony departure) or the loan is repaid at settlement: write off the <strong>entire remaining prepaid balance immediately</strong>. Do not continue the monthly charge. For borrowing costs: flag the write-off to the tax agent — it is fully deductible in the year of repayment under s25-25(5).</p></div>
+</div>
+`,
+qs:[
+  {q:"The trust paid a $12,000 insurance premium upfront for a 12-month policy. How should this be recorded?",o:["Expense $12,000 immediately in P&L","Record as a prepaid asset; amortise $1,000/month over 12 months","Accrue $1,000 per month as a liability","Split 50% expense, 50% prepaid"],a:1,x:"Cash paid upfront for a future benefit is a prepaid asset. Set up an amortisation schedule: $12,000 ÷ 12 = $1,000/month. Do not expense the full amount immediately."},
+  {q:"Sony departs the building, terminating their lease. The leasing commission prepaid balance has $45,000 remaining. What must the Preparer do?",o:["Continue amortising $45,000 over the remaining original lease term","Write off the entire $45,000 remaining balance immediately in the termination period","Defer the write-off until year-end","Accrue $45,000 as a liability for Sony's departure costs"],a:1,x:"On lease termination, the entire remaining prepaid leasing cost balance must be written off immediately in the period of termination. Continuing the monthly amortisation after the lease ends creates a phantom asset on the balance sheet."},
+  {q:"The St George loan is repaid at settlement. Borrowing cost amortisation has $18,000 remaining. Under which provision is this write-off tax-deductible?",o:["TR 97/23","s25-10 ITAA 1997","s25-25(5) ITAA 1997","Division 43"],a:2,x:"Section 25-25(5) ITAA 1997 provides that remaining unamortised borrowing costs are fully deductible in the year the facility is repaid. The Preparer must flag this to the tax agent at settlement."},
+  {q:"An accrual for management fees AND a prepayment amortisation for the same management fee are both running simultaneously. What does this indicate?",o:["This is standard practice for fee recognition","One is a double-count — investigate and remove the duplicate","The accrual covers current month; amortisation covers prior months","The fee was revised during the period"],a:1,x:"If the same cost appears as both a prepaid asset (being amortised) and an accrual (liability), one of them is a double-count. The key test: has cash already been paid? If yes → prepaid/amortise only. If no → accrue only. Never run both."},
+  {q:"After a lease renewal, the borrowing cost amortisation schedule needs adjustment (term extended by 12 months). How should the Preparer update the schedule?",o:["Reverse all prior amortisation and recalculate from inception","Recalculate: remaining prepaid balance ÷ remaining months; apply going forward only","Write off the remaining balance immediately","Increase the monthly amortisation to catch up"],a:1,x:"When the term changes, recalculate the monthly charge going forward: remaining balance ÷ remaining months. Do not restate prior periods. Document the change and update the schedule workpaper."},
+]},
+
+// ─── SECTION 5: OUTGOINGS ────────────────────────────────
+{id:'outgoings', grp:'Group 2 — When It Builds', title:'2c · Outgoings & Payments on Behalf',
+badge:'Group 2',
+lesson:`
+<div class="lcard">
+  <h3>The Core Principle</h3>
+  <p>When the trust pays a cost <strong>on behalf of another party</strong> (a tenant's recoverable outgoing, or a purchaser's contractual obligation), that payment creates a <strong>receivable</strong>, not an expense. The central risk is posting the payment directly to P&amp;L expense and recording nothing on the asset side.</p>
+  <div class="callout critical"><div class="callout-hdr">🚨 Gross Presentation Rule</div><p>Recoverable outgoings must be presented <strong>gross</strong>: the full cost in P&amp;L as expense, and the recovery as a separate income line (or outgoings receivable if unpaid). Never net the recovery against the expense — this suppresses both sides of the P&amp;L and misrepresents outgoings activity.</p></div>
+</div>
+<div class="lcard">
+  <h3>Outgoings Lifecycle</h3>
+  <table class="data-table">
+    <tr><th>State</th><th>Treatment</th><th>Trap to Avoid</th></tr>
+    <tr><td><strong>Outgoing incurred</strong></td><td>Gross expense in P&amp;L</td><td>Do not reduce the expense by expected recovery.</td></tr>
+    <tr><td><strong>Recovery billed/due</strong></td><td>Outgoings receivable (BS) or gross income (if cash received)</td><td>Do not net against expense. Do not omit the income line.</td></tr>
+    <tr><td><strong>Advance received early</strong></td><td>Balance sheet liability — NOT income on receipt</td><td>Do not recognise advance as income AND accrue the outgoing — that doubles both sides.</td></tr>
+    <tr><td><strong>Annual washup</strong></td><td>Record only the net shortfall or credit</td><td>Do not re-record the full year's outgoings and recoveries — they're already in prior-period P&amp;L.</td></tr>
+    <tr><td><strong>Non-recoverable items</strong></td><td>P&amp;L expense only — no receivable</td><td>Management fee, ASIC fee, disposal costs, performance fee are borne by the trust. Exclude from OGS billing.</td></tr>
+  </table>
+</div>
+<div class="lcard">
+  <h3>Sony Outgoings — Specific Procedure</h3>
+  <div class="callout note"><div class="callout-hdr">ℹ️ Sony Note (336 sqm, holdover)</div><p>Sony pays an estimated quarterly advance. Each period: (1) confirm gross outgoing is in P&amp;L as expense; (2) confirm advance is held as a BS liability, not income; (3) confirm recovery billed as separate income line; (4) assess whether annual washup is due; (5) if CPI review date reached, apply escalation.</p></div>
+  <p style="font-size:.82rem;color:var(--ink3);margin-top:.6rem">Recoverable outgoings for this fund: council rates, insurance, common area electricity, water. Management fees and similar trust costs are NOT recoverable.</p>
+</div>
+`,
+qs:[
+  {q:"The trust pays a $6,000 council rates bill that is recoverable from tenants under their leases. How should this be recorded?",o:["Expense $6,000; net off the expected recovery against the expense","Expense $6,000 in P&L; record a separate outgoings receivable or income line for the recovery amount","Record nothing until the tenant pays","Record only the non-recoverable portion as expense"],a:1,x:"Recoverable outgoings must be shown gross: the full $6,000 is a P&L expense, and the recovery is a separate income line (or outgoings receivable if not yet received). Never net the two sides — this suppresses both P&L lines."},
+  {q:"Sony pays a $3,000 quarterly advance for outgoings at the start of the quarter. How should the trust account for this receipt?",o:["Recognise as outgoings income immediately","Record as a balance sheet liability until the quarter's outgoings are incurred","Offset against the outgoings expense when it arises","Do not record until the annual washup"],a:1,x:"Advances received before the period they cover are a balance sheet liability, not income on receipt. The income is only recognised as the actual outgoings are incurred and the recovery is billed. Recognising it immediately creates a double-count."},
+  {q:"Which of the following costs is EXCLUDED from outgoings recovery billing?",o:["Council rates","Common area electricity","Management fee","Insurance premium"],a:2,x:"The management fee is a trust-level cost borne by the trust itself — it cannot be recovered from tenants as an outgoing. Non-recoverable items include management fee, ASIC fee, disposal costs, and performance fee."},
+  {q:"At the annual washup, actual outgoings were $48,000 and tenant advances were $45,000. What should the Preparer record?",o:["Record $48,000 as a new expense and $45,000 as income","Record only the $3,000 net shortfall as a receivable from tenants","Reverse all prior-period entries and re-post the full year","Record $3,000 as income and credit the expense account"],a:1,x:"The annual washup records only the net shortfall ($3,000) — because the full outgoings and advance amounts are already in the prior-period P&L. Re-recording the full amounts would create double-counting."},
+]},
+
+// ─── SECTION 6: TERMINATION — LEASE ─────────────────────
+{id:'lease-term', grp:'Group 3 — Termination', title:'3a · Tenant Lease Termination',
+badge:'Group 3',
+lesson:`
+<div class="lcard">
+  <h3>The Termination Rule</h3>
+  <div class="callout critical"><div class="callout-hdr">🚨 Critical — The Termination Rule</div><p>When a relationship ends — a lease, a loan, or the ownership of the property — <strong>every balance sheet item connected to that relationship must also be closed in the same period.</strong> The most common error: recognising the termination but leaving behind stale balances.</p></div>
+</div>
+<div class="lcard">
+  <h3>Lease Termination Checklist</h3>
+  <p><strong>Trigger:</strong> Tenant gives notice, vacates, surrenders, or lease expires without renewal.</p>
+  <table class="data-table">
+    <tr><th>Balance Sheet Item</th><th>Action</th><th>Key Omission Trap</th></tr>
+    <tr><td>Capitalised leasing costs</td><td>Write off entire remaining balance immediately</td><td>Monthly amortisation continues silently → phantom asset</td></tr>
+    <tr><td>Rent receivable/arrears</td><td>Collect or write off as bad debt</td><td>Leaving uncollectable arrears as a receivable overstates assets</td></tr>
+    <tr><td>Bank guarantee</td><td>Call (if obligation exists) or return/assign to purchaser</td><td>Leaving guarantee on BS as contingent asset after departure</td></tr>
+    <tr><td>Outgoings accrual</td><td>Cease and reconcile; final washup invoice</td><td>Tenant-specific outgoings liability left on BS after lease ends</td></tr>
+    <tr><td>Make-good/dilapidation</td><td>Provision or record receivable at best estimate</td><td>Ignoring make-good obligations because amount uncertain</td></tr>
+    <tr><td>Security deposit (cash)</td><td>Return or apply against obligations</td><td>Forgetting to release the balance sheet liability</td></tr>
+  </table>
+</div>
+<div class="lcard">
+  <h3>Sony Departure — Highest Risk Event</h3>
+  <div class="callout warning"><div class="callout-hdr">⚠️ Warning — Sony (49% of Revenue)</div><p>If Sony departs: (1) write off remaining leasing cost prepaid balance in full that month; (2) complete final OGS washup; (3) assess whether bank guarantee should be called; (4) <strong>reassess investment property fair value immediately</strong> — vacancy increase materially reduces FV; (5) recalculate all variable fees (management, disposal, performance); (6) notify CPG and purchaser under PCOD — departure may trigger renegotiation right. <strong>Do not wait until year-end.</strong></p></div>
+  <p style="font-size:.82rem;color:var(--ink3);margin-top:.6rem"><strong>Lease status review:</strong> Must be performed monthly. Check that each amortisation stream corresponds to an active lease. Leases: Sony (holdover, M2M), 5Point (Oct 2027), Popgun (Dec 2026).</p>
+</div>
+`,
+qs:[
+  {q:"Sony vacates the building. The capitalised leasing cost schedule shows $62,000 remaining. What is the correct treatment?",o:["Continue amortising $62,000 over the remaining original lease term","Write off the entire $62,000 in the period of termination","Transfer $62,000 to deferred sale costs","Accrue $62,000 as a liability for exit costs"],a:1,x:"On lease termination, the entire remaining prepaid leasing cost balance ($62,000) must be written off immediately in the period of termination. Continuing amortisation after the lease ends leaves a phantom asset on the balance sheet."},
+  {q:"Sony departs and has unpaid rent arrears of $18,000. The trust has no realistic prospect of recovery. What is the correct treatment?",o:["Leave the $18,000 as a receivable — it may still be collected","Write off the $18,000 as a bad debt and release any ECL provision","Transfer the arrears to deferred sale costs","Call the bank guarantee automatically"],a:1,x:"Rent arrears with no realistic prospect of collection must be written off as a bad debt, with any existing ECL provision released against the write-off. Do not leave uncollectable arrears as a receivable after the tenant has vacated."},
+  {q:"Which of the following is NOT a step required on a tenant's departure?",o:["Write off remaining leasing costs immediately","Reassess investment property fair value if significant tenant departs","Extend the existing amortisation schedule over the next tenant's term","Complete the final outgoings washup invoice"],a:2,x:"Extending the existing amortisation schedule for the next tenant is incorrect — each new lease requires a new leasing commission prepayment and fresh schedule. The existing schedule must be closed (written off) at termination of the current lease."},
+  {q:"Sony holds a bank guarantee of $55,000. Sony has vacated and has outstanding make-good obligations of $40,000. What should the trust do with the guarantee?",o:["Return the guarantee to Sony immediately","Call the bank guarantee to recover the $40,000 make-good obligation","Leave it on the balance sheet until year-end review","Transfer the guarantee to the purchaser without assessment"],a:1,x:"If the departing tenant has outstanding obligations (unpaid rent, make-good), the trust should call the bank guarantee before it expires. The bank guarantee exists to protect against exactly this situation."},
+  {q:"Why must the Preparer perform a lease status review every month (not just at year-end)?",o:["To ensure rent reviews are applied correctly","Because leasing cost amortisation runs automatically from a schedule and will not detect a lease termination without an active review","To check that bond lodgements are current","Because the tax agent requires monthly confirmation"],a:1,x:"Leasing cost amortisation runs automatically from a schedule. Without a monthly lease status review, a lease termination will not be detected and the amortisation will continue silently for months, creating a phantom asset and overstating expenses."},
+]},
+
+// ─── SECTION 7: DISPOSAL/SETTLEMENT ─────────────────────
+{id:'disposal', grp:'Group 3 — Termination', title:'3b · Disposal of Property (Settlement)',
+badge:'Group 3',
+lesson:`
+<div class="lcard">
+  <h3>Settlement is Not Just a Cash Receipt</h3>
+  <p>Settlement under the PCOD requires a comprehensive balance sheet clearance. Every balance sheet item connected to holding this property must be closed, derecognised, or transferred on the settlement date.</p>
+  <div class="callout critical"><div class="callout-hdr">🚨 Critical</div><p>Items left on the balance sheet after settlement become financial statement misstatements. The pre-settlement period is the time to raise all provisions — not to leave them until the settlement period when everything hits P&L at once.</p></div>
+</div>
+<div class="lcard">
+  <h3>Pre-Settlement Provisions (Raise These Before Settlement)</h3>
+  <table class="data-table">
+    <tr><th>Item</th><th>When to Accrue</th><th>Key Trap</th></tr>
+    <tr><td>Disposal fee (~$132,500 = 1% of GAV)</td><td>When sale becomes probable (option exercised)</td><td>Leaving it un-accrued means the full amount hits settlement-period P&L without warning</td></tr>
+    <tr><td>Agent commission (MP Realty)</td><td>When obligation is certain (unconditional contract)</td><td>Forgetting to accrue until invoice arrives at/after settlement</td></tr>
+    <tr><td>Performance fee (20%/40% above IRR hurdle)</td><td>When reliably estimable (IRR calculation can be completed)</td><td>Leaving un-accrued dramatically understates pre-settlement liabilities</td></tr>
+    <tr><td>Vendor legal (K&L Gates)</td><td>As incurred — accrue unpaid invoices each period</td><td>Post-settlement legal invoices cannot reduce the gain retrospectively</td></tr>
+    <tr><td>Settlement adjustments (rates, land tax, water, rent)</td><td>At settlement date</td><td>Do not expense the full annual charge AND record a recovery — choose consistent treatment</td></tr>
+    <tr><td>Post-settlement vendor obligations (warranties)</td><td>When probable and estimable</td><td>Releasing all liabilities at settlement without checking for surviving obligations</td></tr>
+  </table>
+</div>
+<div class="lcard">
+  <h3>At-Settlement Balance Sheet Clearance (Key Items)</h3>
+  <ul>
+    <li><strong>Investment property:</strong> Derecognise at carrying value; record disposal gain/loss</li>
+    <li><strong>Deferred sale costs ($133,732):</strong> Offset against disposal proceeds</li>
+    <li><strong>Prepaid borrowing costs:</strong> Write off entire balance (s25-25(5) deduction)</li>
+    <li><strong>Prepaid leasing costs:</strong> Write off if Sony/others still in occupancy at settlement</li>
+    <li><strong>Option consideration ($1.325M):</strong> Reclassify from liability to proceeds</li>
+    <li><strong>Purchaser deposit ($1.325M):</strong> Apply against settlement proceeds</li>
+    <li><strong>Bank guarantees (5Point $33k, Popgun $61.6k):</strong> Assign to purchaser; document</li>
+    <li><strong>FRCGW ($1.988M at 15%):</strong> Withhold or obtain clearance certificate &gt;28 days pre-settlement</li>
+  </ul>
+</div>
+`,
+qs:[
+  {q:"When should the disposal fee (~$132,500) begin to be accrued?",o:["Only at the exact settlement date","When the sale contract is signed (option exercised / sale becomes probable)","At the beginning of each financial year","When the invoice is received from the disposal agent"],a:1,x:"The disposal fee should be accrued when the sale becomes probable (i.e., when the option is exercised). Waiting until settlement means the full expense hits the settlement-period P&L without prior warning, distorting both the pre-settlement and settlement periods."},
+  {q:"What is FRCGW and when must clearance be obtained?",o:["Foreign Resident Capital Gains Withholding — clearance certificate must be obtained at least 28 days before settlement","Federal Rates and Council General Withholding — obtained at settlement","Foreign Reporting Capital Gains Warrant — required post-settlement","A QLD state duty — obtained from QRO on settlement date"],a:0,x:"FRCGW = Foreign Resident Capital Gains Withholding. Rate is 15% (no threshold from 1 Jan 2025). The clearance certificate must be applied for at least 28 days before settlement. Without it, the purchaser must withhold $1.988M from the proceeds."},
+  {q:"Post-settlement legal invoices arrive from K&L Gates for work done during the pre-settlement period. Can these reduce the disposal gain?",o:["Yes — they relate to the pre-settlement period","No — post-settlement legal invoices that relate to the sale period cannot retrospectively reduce the gain","Yes, if the tax agent approves the adjustment","Only if they were accrued before settlement"],a:1,x:"Post-settlement legal invoices relating to the pre-settlement period cannot reduce the disposal gain retrospectively. This is why all vendor legal costs must be accrued or invoiced before settlement."},
+  {q:"The $1.325M option consideration has been sitting as a balance sheet liability. When can this be recognised as income?",o:["Immediately — it was received in cash","When the performance fee calculation is finalised","Only on legal confirmation that the option has been exercised and the forfeiture period has passed","It can never be recognised as income"],a:2,x:"The $1.325M option consideration must remain classified as a liability until legal confirmation is received that the option has been validly exercised and no forfeiture triggers have arisen. Do not recognise as income without tax agent advice."},
+  {q:"At settlement, the deferred sale cost balance is $133,732. How should this be treated?",o:["Expense it to P&L as settlement costs","Offset it against the disposal proceeds when calculating the gain/loss on disposal","Transfer it to a goodwill account","Write it off as an impairment loss"],a:1,x:"Deferred sale costs (costs exclusively connected to the sale) are held on the balance sheet until settlement, at which point they are offset against the disposal proceeds in the gain/loss calculation. They are not expensed to P&L separately."},
+]},
+
+// ─── SECTION 8: KEY RATES ────────────────────────────────
+{id:'rates', grp:'Key Figures', title:'Current Rates & Key Figures',
+badge:'Reference',
+lesson:`
+<div class="lcard">
+  <h3>ATO Rates (March 2026)</h3>
+  <div class="callout warning"><div class="callout-hdr">⚠️ Non-Deductibility from 1 Jul 2025</div><p>GIC and SIC are <strong>non-deductible</strong> from 1 July 2025. Do not claim these as deductions in the tax return or financial statements from that date.</p></div>
+  <div class="kf-grid">
+    <div class="kf-card red"><div class="kf-label">GIC (ATO)</div><div class="kf-val">10.65%</div><div class="kf-note">BAB + 7%. Non-deductible from 1 Jul 2025.</div></div>
+    <div class="kf-card red"><div class="kf-label">SIC (ATO)</div><div class="kf-val">6.65%</div><div class="kf-note">BAB + 3%. Non-deductible from 1 Jul 2025.</div></div>
+    <div class="kf-card red"><div class="kf-label">QRO UTI (QLD)</div><div class="kf-val">11.78%</div><div class="kf-note">Land tax & transfer duty. Compounding daily.</div></div>
+    <div class="kf-card red"><div class="kf-label">Council Late Interest</div><div class="kf-val">12.12%</div><div class="kf-note">Compounding daily from 30 days after notice.</div></div>
+  </div>
+</div>
+<div class="lcard">
+  <h3>Property & Transaction Rates</h3>
+  <div class="kf-grid">
+    <div class="kf-card gold"><div class="kf-label">FRCGW Rate</div><div class="kf-val">15%</div><div class="kf-note">No threshold from 1 Jan 2025. Apply 28+ days pre-settlement.</div></div>
+    <div class="kf-card"><div class="kf-label">Land Tax (Trustee)</div><div class="kf-val">$1,450</div><div class="kf-note">+ 1.7¢ per $1 over $350k. Midnight 30 Jun annually.</div></div>
+    <div class="kf-card"><div class="kf-label">ASIC Annual Review</div><div class="kf-val">$329</div><div class="kf-note">Late: +$98 (&lt;1 month); +$411 (&gt;1 month).</div></div>
+    <div class="kf-card teal"><div class="kf-label">CPI (Brisbane Dec Q 2025)</div><div class="kf-val">~3.5%</div><div class="kf-note">ABS 6401.0. Check quarterly for rent escalation.</div></div>
+  </div>
+</div>
+<div class="lcard">
+  <h3>Loan & Property Information</h3>
+  <div class="kf-grid">
+    <div class="kf-card"><div class="kf-label">St George Loan Rate</div><div class="kf-val">1.95% p.a.</div><div class="kf-note">Fixed. Matures 15 Jun 2026. Refinancing rate likely higher.</div></div>
+    <div class="kf-card"><div class="kf-label">RBA Cash Rate</div><div class="kf-val">4.10%</div><div class="kf-note">Check monthly (first Tuesday). Feeds BAB base for GIC/SIC.</div></div>
+    <div class="kf-card gold"><div class="kf-label">Deferred Sale Costs</div><div class="kf-val">$133,732</div><div class="kf-note">Current balance. All costs exclusively connected to the sale.</div></div>
+    <div class="kf-card red"><div class="kf-label">Sony Revenue Share</div><div class="kf-val">49%</div><div class="kf-note">Highest risk tenant. Holdover month-to-month.</div></div>
+  </div>
+</div>
+`,
+qs:[
+  {q:"What is the ATO's General Interest Charge (GIC) rate as of March 2026, and is it tax-deductible?",o:["10.65% p.a. — fully deductible","6.65% p.a. — non-deductible from 1 Jul 2025","10.65% p.a. — non-deductible from 1 Jul 2025","11.78% p.a. — deductible for trusts"],a:2,x:"The GIC rate is 10.65% p.a. (BAB + 7%). Critically, it became non-deductible from 1 July 2025. The SIC rate is 6.65% (BAB + 3%) and is also non-deductible from that date."},
+  {q:"What is the FRCGW rate applicable from 1 January 2025, and at what threshold does it apply?",o:["12.5% — applies only to properties over $750,000","15% — no threshold; applies to all property sales","10% — applies to properties over $2M","15% — applies only to foreign residents with no Australian tax file number"],a:1,x:"From 1 January 2025, the FRCGW rate is 15% with no monetary threshold. It applies to all property disposals unless a valid clearance certificate is obtained. For this fund, $1.988M would be withheld without a certificate."},
+  {q:"When is land tax assessed for a Queensland trust?",o:["30 June each year (midnight)","30 September each year","At settlement only","When the QRO issues a notice"],a:0,x:"Land tax is assessed at midnight on 30 June each year. For a trustee rate, the applicable rate is $1,450 + 1.7 cents per dollar above $350,000. A clearance certificate is required pre-settlement."},
+  {q:"The St George facility matures on 15 June 2026. What is the current interest rate, and what concern does this raise?",o:["4.10% — near the RBA cash rate, so refinancing is straightforward","1.95% fixed — refinancing rate is likely to be materially higher","6.65% — matching the SIC rate","1.95% variable — subject to RBA movements"],a:1,x:"The St George loan rate is 1.95% p.a. fixed, maturing 15 June 2026. As the refinancing rate is likely significantly higher, this creates a going concern risk if settlement does not occur before maturity. Loan reclassification to current liabilities and going concern disclosure must be assessed."},
+  {q:"The QRO UTI rate of 11.78% applies to which types of obligations?",o:["ATO income tax debts only","Land tax and transfer duty in Queensland","GIC on BAS shortfalls","Council rates in Brisbane"],a:1,x:"The QRO (Queensland Revenue Office) Unpaid Tax Interest rate of 11.78% p.a. applies to Queensland state obligations — specifically land tax and transfer duty. It compounds daily and is non-deductible."},
+]},
+
+// ─── SECTION 9: PERIOD-END CHECKLIST ────────────────────
+{id:'period-end', grp:'Period-End', title:'Period-End Attention Items',
+badge:'Checklist',
+lesson:`
+<div class="lcard">
+  <h3>Balance Sheet — Priority Items</h3>
+  <table class="data-table">
+    <tr><th>Item</th><th>Key Question</th></tr>
+    <tr><td><strong>IP Fair Value</strong></td><td>Net contract price less updated disposal cost estimate = fair value? Post-valuation capex added? Cyclone damage impact reflected?</td></tr>
+    <tr><td><strong>Investment Property (HFS)</strong></td><td>AASB 5 measurement rules do NOT apply (AASB 140 fair value model). Property remains non-current until settlement date.</td></tr>
+    <tr><td><strong>Option Consideration ($1.325M)</strong></td><td>Still classified as liability? No forfeiture trigger? Do not recognise as income without tax agent advice.</td></tr>
+    <tr><td><strong>Loan Classification</strong></td><td>Reclassified as current (within 12 months)? Refinancing status documented? Going concern disclosure assessed?</td></tr>
+    <tr><td><strong>ECL / Bad Debt</strong></td><td>Sony 49% concentration. Arrears position? Forward-looking estimate updated?</td></tr>
+    <tr><td><strong>Intercompany (CPG)</strong></td><td>Reconciled to CPG records? Direction and interest confirmed? Treatment at settlement agreed?</td></tr>
+  </table>
+</div>
+<div class="lcard">
+  <h3>Income Statement — Priority Items</h3>
+  <table class="data-table">
+    <tr><th>Item</th><th>Key Question</th></tr>
+    <tr><td><strong>Double-Count Check</strong></td><td>Before posting any invoice: did an accrual already exist? If yes — clear the accrual only; do not post second P&L expense.</td></tr>
+    <tr><td><strong>Fee Recalculation</strong></td><td>Property value, revenue, or occupancy changed? Recalculate management, disposal, and performance fees. Apply CPI escalation at review date.</td></tr>
+    <tr><td><strong>Deductibility Review</strong></td><td>GIC/SIC excluded from deductions? s25-25(5) flagged for settlement year? Fines and penalties excluded?</td></tr>
+    <tr><td><strong>Distribution Components</strong></td><td>Five components: ordinary income, net capital gain, discount capital gain, tax-deferred, return of capital? Tax agent consulted?</td></tr>
+    <tr><td><strong>Going Concern</strong></td><td>Loan maturity vs sale timeline: material uncertainty? Disclosure required if no confirmed refinancing?</td></tr>
+    <tr><td><strong>Post-Balance Date Events</strong></td><td>Any material event after reporting date? Adjusting or non-adjusting under AASB 110?</td></tr>
+  </table>
+  <div class="callout note"><div class="callout-hdr">ℹ️ Investment Property Classification</div><p>AASB 5 (Held for Sale) measurement rules do NOT apply to this property. The fund operates under AASB 140 fair value model. The property remains classified as non-current investment property until the actual settlement date — not when the PCOD was signed.</p></div>
+</div>
+`,
+qs:[
+  {q:"The loan from St George matures on 15 June 2026. In the February 2026 accounts, how should the loan be classified?",o:["Non-current — it hasn't matured yet","Current — it matures within 12 months of balance date","Off-balance-sheet — it's under a PCOD","Contingent liability — only if not refinanced"],a:1,x:"A loan maturing within 12 months of the balance date must be reclassified as a current liability. For the Feb 2026 accounts, the June 2026 maturity falls within 12 months. Refinancing status must also be documented and going concern disclosure assessed."},
+  {q:"Which AASB standard governs the measurement of the investment property in this fund — AASB 5 (Held for Sale) or AASB 140?",o:["AASB 5 — because the property is under a PCOD","AASB 140 — the fair value model applies; AASB 5 does not apply to investment property measured at fair value","Both apply simultaneously","Neither — it follows AASB 116 for property"],a:1,x:"AASB 140 (Investment Property) governs measurement using the fair value model. AASB 5 (Held for Sale) measurement rules do NOT apply to investment property measured at fair value. The property remains non-current until actual settlement date."},
+  {q:"How many components must the tax agent determine for the trust's distribution?",o:["2 (ordinary income and capital gain)","3 (income, capital, tax-deferred)","5 (ordinary income, net capital gain, discount capital gain, tax-deferred, return of capital)","1 — total distributable income"],a:2,x:"The trust distribution must identify five components: (1) ordinary income, (2) net capital gain, (3) discount capital gain, (4) tax-deferred, and (5) return of capital. The tax agent must be consulted before finalising these components."},
+  {q:"The investment property fair value is determined using which approach under the PCOD?",o:["Discounted cash flow (DCF) based on rent rolls","Independent registered valuation only","Net contract price less updated disposal cost estimate","Book value plus accumulated depreciation"],a:2,x:"Under the PCOD, the fair value of the investment property is calculated as the net contract price less the updated estimate of disposal costs. Any post-valuation capital expenditure (e.g., cyclone remediation) must also be added."},
+]},
+
+// ─── SECTION 10: COMPLIANCE CALENDAR ────────────────────
+{id:'compliance', grp:'Compliance', title:'Compliance Calendar & Deadlines',
+badge:'Compliance',
+lesson:`
+<div class="lcard">
+  <h3>Critical Compliance Deadlines</h3>
+  <div class="callout critical"><div class="callout-hdr">🚨 Penalties for Late Compliance</div><p>Late payment of GIC (10.65%), SIC (6.65%), QRO UTI (11.78%), and council interest (12.12%) compound daily. These charges are now non-deductible, making avoidance critical. ASIC late fees can escalate to deregistration.</p></div>
+  <table class="data-table">
+    <tr><th>Deadline</th><th>Obligation</th><th>Consequence if Late</th><th>Responsible</th></tr>
+    <tr><td>7d post-settlement</td><td>FRCGW remittance (if no certificate)</td><td>Full amount + GIC</td><td>Purchaser</td></tr>
+    <tr><td>30d post-exercise</td><td>Transfer duty on contract</td><td>QRO UTI 11.78% daily</td><td>CPG</td></tr>
+    <tr><td>Midnight 30 Jun</td><td>Land tax assessment</td><td>UTI + 75% penalty</td><td>CPG</td></tr>
+    <tr><td>1m post-30 Jun</td><td>QRO land tax notification</td><td>Up to 75% penalty</td><td>CPG</td></tr>
+    <tr><td>31 Oct annually</td><td>AIIR filing</td><td>ATO admin penalties</td><td>Tax agent</td></tr>
+    <tr><td>Quarterly (28th)</td><td>BAS + PAYG/WHT</td><td>GIC 10.65%</td><td>UFS</td></tr>
+    <tr><td>Quarterly (30d)</td><td>Council rates</td><td>12.12% daily</td><td>CPG</td></tr>
+    <tr><td>2m post-anniversary</td><td>ASIC review ($329)</td><td>+$98 / +$411 / deregistration</td><td>CPG</td></tr>
+    <tr><td>Annually</td><td>Fire occupier's statement</td><td>30 penalty units</td><td>CPG</td></tr>
+    <tr><td>Pre-settlement</td><td>Rates + water clearances</td><td>Cannot settle without</td><td>Solicitor</td></tr>
+    <tr><td>Each reporting date</td><td>Loan reclassification + going concern</td><td>Financial statement misstatement</td><td>Preparer</td></tr>
+  </table>
+</div>
+`,
+qs:[
+  {q:"What is the consequence of failing to remit the FRCGW withholding within 7 days of settlement?",o:["A $500 flat penalty","The full withheld amount plus GIC at 10.65% p.a.","Only the GIC applies — no base penalty","QRO UTI at 11.78% applies"],a:1,x:"If the FRCGW is not remitted within 7 days of settlement, the purchaser faces liability for the full withholding amount plus GIC at 10.65% p.a. This is why the clearance certificate must be obtained at least 28 days before settlement."},
+  {q:"What is the penalty for lodging the ASIC annual review fee ($329) more than 1 month late?",o:["+$98 additional penalty","+$411 additional penalty","Deregistration immediately","$329 × 2 doubling penalty"],a:1,x:"The ASIC annual review fee escalates significantly: less than 1 month late → +$98 penalty; more than 1 month late → +$411 penalty. Ultimate consequence of continued non-payment is deregistration."},
+  {q:"BAS and PAYG/WHT for a quarterly period are due on which date?",o:["Last day of the quarter","28th of the month following the quarter","30th of the month following the quarter","Within 14 days of quarter end"],a:1,x:"Quarterly BAS and PAYG/WHT obligations are due on the 28th of the month following the end of the quarter. Late payment attracts GIC at 10.65% p.a. (which is non-deductible from 1 July 2025)."},
+  {q:"Which obligation MUST be cleared before settlement can proceed?",o:["Performance fee accrual","Rates and water clearances","ASIC annual review fee","AIIR filing"],a:1,x:"Rates and water clearances (from the Brisbane City Council and relevant water authority) are a legal pre-condition to settlement — you literally cannot settle without them. The solicitor is responsible for obtaining these pre-settlement."},
+]},
+
+];
+
+// ═══════════════════════════════════════════════════════
+// QUIZ ENGINE
+// ═══════════════════════════════════════════════════════
+let answered=0, score=0;
+const aSet=new Set();
+const dotOrder=[];
+const totalQ=D.reduce((a,d)=>a+d.qs.length,0);
+
+function computeDotTypes(rawOrder){
+  const t=rawOrder.map(e=>e.ok?'ok':'no');
+  let consec=0,prevMinus=false;
+  for(let i=0;i<t.length;i++){
+    if(t[i]==='no'){
+      consec++;
+      if(consec>=3||prevMinus){t[i]='minus';prevMinus=true;}
+      else{prevMinus=false;}
+    } else {consec=0;prevMinus=false;}
+  }
+  for(let i=0;i<t.length;i++){
+    if(t[i]==='ok'){
+      let before=0,j=i-1;
+      while(j>=0&&t[j]!=='ok'&&t[j]!=='wild73'&&t[j]!=='wild52'){before++;j--;}
+      let after=0;j=i+1;
+      while(j<t.length&&t[j]!=='ok'&&t[j]!=='wild73'&&t[j]!=='wild52'){after++;j++;}
+      if(before>=2&&after>=2){t[i]='wild52';}
+      else if((before>=2&&after===1)||(before===1&&after>=2)){t[i]='wild73';}
+    }
+  }
+  return t;
+}
+function computeScore(types){
+  return types.reduce((acc,t)=>{
+    if(t==='ok')return acc+1;
+    if(t==='wild73')return acc+0.73;
+    if(t==='wild52')return acc+0.52;
+    if(t==='minus')return acc-1;
+    return acc;
+  },0);
+}
+const TYPE_CLASSES=['ok','no','wild73','wild52','minus'];
+
+function ha(qid,sel,cor){
+  if(aSet.has(qid))return;
+  aSet.add(qid);answered++;
+  const ok=sel===cor;
+  dotOrder.push({qid,ok});
+  document.querySelectorAll(`.qo[data-qid="${qid}"]`).forEach(o=>{
+    o.classList.add('dis');
+    const oi=+o.dataset.oi;
+    if(oi===sel&&ok)o.classList.add('sc');
+    else if(oi===sel&&!ok)o.classList.add('sw');
+    if(oi===cor&&!ok)o.classList.add('shc');
+  });
+  const fb=document.getElementById('fb-'+qid);
+  fb.className=`qfb show ${ok?'ok':'no'}`;
+  fb.innerHTML=`<strong>${ok?'✓ Correct!':'✗ Incorrect.'}</strong> ${D.flatMap(d=>d.qs.map((q,qi)=>({id:d.id+'-q'+qi,x:q.x}))).find(q=>q.id===qid)?.x||''}`;
+  uS();
+}
+
+function uS(){
+  const types=computeDotTypes(dotOrder);
+  score=Math.round(computeScore(types)*100)/100;
+  const correctCt=types.filter(t=>t==='ok').length;
+  const wrong=types.filter(t=>t==='no').length;
+  const w73Ct=types.filter(t=>t==='wild73').length;
+  const w52Ct=types.filter(t=>t==='wild52').length;
+  const minusCt=types.filter(t=>t==='minus').length;
+  const fmtScore=Number.isInteger(score)?score:score.toFixed(2);
+  document.getElementById('sV').textContent=correctCt;
+  document.getElementById('wV').textContent=wrong;
+  document.getElementById('wild73V').textContent=w73Ct;
+  document.getElementById('wild52V').textContent=w52Ct;
+  document.getElementById('minusV').textContent=minusCt;
+  document.getElementById('totalPtsV').textContent=fmtScore;
+  document.getElementById('aV').textContent=`${answered} / ${totalQ} answered`;
+  const wrap=document.getElementById('stw');
+  if(wrap){wrap.style.background=score>0?'linear-gradient(135deg,#556038,#3E4F2C)':score<0?'linear-gradient(135deg,#8A3324,#6E2418)':'rgba(196,154,0,.1)';}
+  // dots
+  const dw=document.getElementById('qdots');
+  if(dw&&dw.children.length===0){
+    for(let i=0;i<totalQ;i++){
+      const d=document.createElement('span');
+      d.className='qdot';d.id='dot-'+i;
+      dw.appendChild(d);
+    }
+  }
+  types.forEach((typ,i)=>{
+    const dot=document.getElementById('dot-'+i);
+    if(!dot)return;
+    TYPE_CLASSES.forEach(c=>dot.classList.remove(c));
+    dot.classList.add(typ);
+    const LABELS={ok:'🥇 Scored (+1)',no:'✗ Missed (0)',wild73:'🌻 Lucky Shot (+0.73)',wild52:'🍂 Fluke (+0.52)',minus:'⚡ Foul (−1)'};
+    dot.title=LABELS[typ]||'';
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// BUILD UI
+// ═══════════════════════════════════════════════════════
+let currentIdx=0;
+function buildSidebar(){
+  const nav=document.getElementById('sb-nav');
+  const grps={};
+  D.forEach(d=>{if(!grps[d.grp])grps[d.grp]=[];grps[d.grp].push(d);});
+  let html='';
+  Object.keys(grps).forEach(g=>{
+    const items=grps[g];
+    const totalQs=items.reduce((a,d)=>a+d.qs.length,0);
+    html+=`<div class="nav-cat">${g}</div>`;
+    html+=`<div>`;
+    items.forEach(d=>{
+      html+=`<button class="nav-item" data-id="${d.id}" onclick="ss('${d.id}')">${d.title} <span style="color:rgba(196,154,0,.45);font-size:.56rem;margin-left:.3rem">${d.qs.length}Q</span></button>`;
+    });
+    html+=`</div>`;
+  });
+  nav.innerHTML=html;
+}
+
+function buildSections(){
+  const root=document.getElementById('sections-root');
+  let qGlobal=0;
+  let html='';
+  D.forEach(d=>{
+    html+=`<div class="section" id="sec-${d.id}">`;
+    html+=`<div class="sec-hdr"><span class="sec-badge">${d.badge}</span><h2>${d.title}</h2><div class="bc">SOP v2.0 · 22 Constance St Unit Trust</div></div>`;
+    const secQs=d.qs.length;
+    html+=`<div class="sec-meta"><span class="qc">${secQs} Question${secQs!==1?'s':''}</span><span>·</span><span>Multiple Choice</span></div>`;
+    // lesson
+    html+=d.lesson;
+    // quiz header
+    html+=`<div style="margin:2rem 0 .5rem;display:flex;align-items:center;gap:.8rem"><div style="flex:1;height:1px;background:linear-gradient(90deg,var(--navy),transparent)"></div><span style="font-family:'Playfair Display',serif;font-size:.85rem;color:var(--navy);font-weight:600;white-space:nowrap">📝 Knowledge Check</span><div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--navy))"></div></div>`;
+    d.qs.forEach((q,qi)=>{
+      const qid=`${d.id}-q${qi}`;
+      const qNum=qGlobal+qi+1;
+      html+=`<div class="qcard" id="quiz-${qid}">`;
+      html+=`<div class="qlbl"><span class="qnum">Question ${qNum} of ${totalQ}</span><span class="qbadge">MCQ</span></div>`;
+      html+=`<div class="qbody"><p class="qt">${q.q}</p><div class="qopts">`;
+      const letters=['A','B','C','D','E'];
+      q.o.forEach((opt,oi)=>{
+        html+=`<button class="qo" data-qid="${qid}" data-oi="${oi}" onclick="ha('${qid}',${oi},${q.a})"><span class="lt">${letters[oi]}</span>${opt}</button>`;
+      });
+      html+=`</div><div class="qfb" id="fb-${qid}"></div></div></div>`;
+    });
+    qGlobal+=d.qs.length;
+    html+=`</div>`; // end section
+  });
+  root.innerHTML=html;
+}
+
+function ss(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('visible'));
+  const s=document.getElementById('sec-'+id);
+  if(s){s.classList.add('visible');window.scrollTo({top:0,behavior:'smooth'});}
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const b=document.querySelector(`.nav-item[data-id="${id}"]`);
+  if(b){b.classList.add('active');}
+  currentIdx=D.findIndex(d=>d.id===id);
+  if(window.innerWidth<=900)closeSidebar();
+}
+function goNext(){currentIdx=(currentIdx+1)%D.length;ss(D[currentIdx].id);}
+function goPrev(){currentIdx=(currentIdx-1+D.length)%D.length;ss(D[currentIdx].id);}
+
+// sidebar toggle
+const mbBtn=document.getElementById('mb');
+const sidebarEl=document.getElementById('sidebar');
+const ovEl=document.getElementById('ov');
+function toggleSidebar(){
+  const isOpen=sidebarEl.classList.toggle('open');
+  mbBtn.classList.toggle('is-open',isOpen);
+  if(window.innerWidth<=900){ovEl.classList.toggle('show',isOpen);}
+  else{document.body.classList.toggle('sidebar-open',isOpen);}
+}
+function closeSidebar(){
+  sidebarEl.classList.remove('open');
+  ovEl.classList.remove('show');
+  mbBtn.classList.remove('is-open');
+  document.body.classList.remove('sidebar-open');
+}
+if(window.innerWidth>900){
+  sidebarEl.classList.add('open');
+  mbBtn.classList.add('is-open');
+  document.body.classList.add('sidebar-open');
+}
+mbBtn.addEventListener('click',toggleSidebar);
+ovEl.addEventListener('click',closeSidebar);
+
+// Init
+buildSidebar();
+buildSections();
+uS();
+if(D.length)ss(D[0].id);
+</script>
+</body>
+</html>
