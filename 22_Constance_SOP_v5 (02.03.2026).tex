@@ -184,6 +184,16 @@
     boxed title style={colback=infoteal, colframe=infoteal, rounded corners=all, left=6pt, right=6pt, top=2pt, bottom=2pt},
     top=14pt, bottom=6pt, left=8pt, right=8pt, before skip=22pt, after skip=8pt, rounded corners=south}
 
+\newtcolorbox{importantnote}[1][]{
+    enhanced, breakable, colback=warnamber!8!white, colframe=warnamber!75!black,
+    boxrule=0pt, leftrule=5pt, borderline north={1pt}{0pt}{warnamber!50!white},
+    drop shadow southeast,
+    fonttitle=\sffamily\bfseries\small\color{white},
+    title={$\bigstar$\enspace IMPORTANT\ifx&#1&\else\textcolor{white!70!warnamber}{\enspace\textbf{·}}\enspace #1\fi},
+    attach boxed title to top left={xshift=8pt, yshift=-\tcboxedtitleheight/2},
+    boxed title style={colback=warnamber!75!black, colframe=warnamber!75!black, rounded corners=all, left=6pt, right=6pt, top=2pt, bottom=2pt},
+    top=14pt, bottom=6pt, left=8pt, right=8pt, before skip=22pt, after skip=8pt, rounded corners=south}
+
 % ===========================
 % COLUMN TYPES & COMMANDS
 % ===========================
@@ -943,6 +953,14 @@ The Yardi ledger and the NAB bank statement are reconciled monthly. Any differen
 \begin{note}[Test: Which Case Applies?]
 Does the item appear in both Yardi \emph{and} the bank this month? $\to$ Case~1, no action. Is it in Yardi only? $\to$ Case~5 (Yardi ahead). Is it in the bank only? $\to$ Case~4 if unidentified, or Case~2 if Yardi recorded it last month. Did the bank clear it before Yardi has recorded it? $\to$ Case~3. The Sundry Debtor entry corrects timing only --- it does not change the underlying expense or income classification.
 \end{note}
+
+\begin{importantnote}[Backdated Journals --- Prior Period Trial Balance Check]
+Some journals are recorded in Yardi backdated into a previous period --- sometimes many periods prior. When performing the bank reconciliation, \textbf{always reconcile and recheck the prior closing Trial Balance} in the UFS reporting pack against the current opening Trial Balance exported from Yardi. If a bank transaction cannot be located in the previous, current, or next period in Yardi, \textbf{check the Trial Balance for backdated postings before concluding the item is unmatched}. It is common for backdating to extend further back than initially expected, and the mismatch will only be visible as a TB movement rather than a direct ledger entry in the period under review. Do not raise a Sundry Debtor entry for a backdated item that has already been posted to a prior period --- confirm the TB movement first.
+\end{importantnote}
+
+\begin{importantnote}[Journals Without Supporting Invoice in Yardi --- CPG / Intercompany Charges]
+It is very common for journals to be recorded in Yardi \textbf{without a corresponding invoice uploaded} in the system. This occurs most frequently for charges issued by CPG or other intercompany entities, in particular: \textbf{property accounting fees} and \textbf{management fees}. When such entries are identified during the reconciliation, \textbf{always request the supporting invoice from CPG} before the reporting pack is finalised. Do not accept a journal entry for an intercompany fee as complete until the invoice is attached to the transaction in Yardi. If CPG cannot provide the invoice within the reporting cycle, note the outstanding item in the reporting pack review comments and escalate to the second reviewer.
+\end{importantnote}
 
 
 \subsubsection{1b --- Repair vs.\ Maintenance vs.\ Utilities vs.\ Capital}
